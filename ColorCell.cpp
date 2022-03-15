@@ -2,22 +2,46 @@
 #include <iostream>
 using namespace std;
 
+// CONSTRUCTEURS DESTRUCTEURS /////////////////////////////////////////////////////////////////////
+
+// Constructeur par défaut
+ColorCell::ColorCell() {
+	this->rouge = this->vert = this->bleu = 0;
+}
+
+/**
+* Constructeur de Noeud avec id et valeur
+* @param _rouge:	code pour la couleur rouge
+* @param _vert:		code pour la couleur verte
+* @param _bleu:		code pour la couleur bleue
+*/
+ColorCell::ColorCell(short int _rouge, short int _vert, short int _bleu) {
+	this->rouge = _rouge;
+	this->vert = _vert;
+	this->bleu = _bleu;
+}
+
+// Destructeur par défaut
+ColorCell::~ColorCell(){}
+
+// GETTERS SETTERS ////////////////////////////////////////////////////////////////////////////////
+
 // Getter de rouge
-short int ColorCell::GetRouge() const { return rouge; }
+short int ColorCell::getRouge() const { return rouge; }
 
 // Getter de vert
-short int ColorCell::GetVert() const { return vert; }
+short int ColorCell::getVert() const { return vert; }
 
 // Getter de bleu
-short int ColorCell::GetBleu() const { return bleu; }
+short int ColorCell::getBleu() const { return bleu; }
 
 /**
 * Setter de rouge
 * Verifie si la valeur est bien entre 0 et 255 avant de l'utiliser
 * @param _valeur : short int
 */
-void ColorCell::SetRouge(short int _valeur) {
-	if (0 >= _valeur <= 255) {
+void ColorCell::setRouge(short int _valeur) {
+	if (0 >= _valeur && _valeur <= 255) {
 		rouge = _valeur;
 	}
 	else {
@@ -30,8 +54,8 @@ void ColorCell::SetRouge(short int _valeur) {
 * Verifie si la valeur est bien entre 0 et 255 avant de l'utiliser
 * @param _valeur : short int
 */
-void ColorCell::SetVert(short int _valeur) {
-	if (0 >= _valeur <= 255) {
+void ColorCell::setVert(short int _valeur) {
+	if (0 >= _valeur && _valeur <= 255) {
 		vert = _valeur;
 	}
 	else {
@@ -44,8 +68,8 @@ void ColorCell::SetVert(short int _valeur) {
 * Verifie si la valeur est bien entre 0 et 255 avant de l'utiliser
 * @param _valeur : short int
 */
-void ColorCell::SetBleu(short int _valeur) {
-	if (0 >= _valeur <= 255) {
+void ColorCell::setBleu(short int _valeur) {
+	if (0 >= _valeur && _valeur <= 255) {
 		bleu = _valeur;
 	}
 	else {
@@ -53,7 +77,9 @@ void ColorCell::SetBleu(short int _valeur) {
 	}
 }
 
+// FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
+
 // Représentation textuelle de ColorCell
-string ColorCell::ToString() const {
+string ColorCell::toString() const {
 	return to_string(rouge) + " " + to_string(vert) + " " + to_string(bleu);
 }

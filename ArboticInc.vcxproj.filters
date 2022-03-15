@@ -13,10 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Arbre">
+      <UniqueIdentifier>{5a659d30-2f21-4aa5-868e-1e90a5067037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Arbre\Cellules">
+      <UniqueIdentifier>{be5b7f1d-2b6f-4b3d-b1f1-862cbcdadb5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Arbre">
+      <UniqueIdentifier>{519ef5b8-d30a-4b69-920d-b866c277fd7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Arbre\Cellules">
+      <UniqueIdentifier>{3c9a5e3f-b094-4ca9-91f2-8bb567296fa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Arbre.cpp">
+      <Filter>Source Files\Arbre</Filter>
+    </ClCompile>
+    <ClCompile Include="ChromoCell.cpp">
+      <Filter>Source Files\Arbre\Cellules</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorCell.cpp">
+      <Filter>Source Files\Arbre\Cellules</Filter>
+    </ClCompile>
+    <ClCompile Include="Noeud.cpp">
+      <Filter>Source Files\Arbre</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Arbre.h">
+      <Filter>Header Files\Arbre</Filter>
+    </ClInclude>
+    <ClInclude Include="Noeud.h">
+      <Filter>Header Files\Arbre</Filter>
+    </ClInclude>
+    <ClInclude Include="ChromoCell.h">
+      <Filter>Header Files\Arbre\Cellules</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorCell.h">
+      <Filter>Header Files\Arbre\Cellules</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

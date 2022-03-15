@@ -6,10 +6,10 @@ using namespace std;
 
 void test_Noeud_Template() {
 
-	//cout << "Test int" << endl;
-	//Noeud<int> testInt = Noeud<int>(1,30);
-	//cout << "ID : " << testInt.getID() << " ";
-	//cout << "valeur " << testInt.cell << endl;
+	cout << "Test int" << endl;
+	Noeud<int> testInt = Noeud<int>(1,30);
+	cout << "ID : " << testInt.getID() << " ";
+	cout << "valeur " << testInt.cell << endl;
 
 	cout << "Test ColorCell" << endl;
 	ColorCell cell = ColorCell(255, 255, 255);

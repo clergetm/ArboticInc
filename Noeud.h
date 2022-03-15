@@ -35,7 +35,7 @@ public:
 * @param _id:		identifiant du Noeud
 */
 template<class T>
-Noeud<T>::Noeud(short int  _id) {
+Noeud<T>::Noeud(short int _id) {
 	ancGauche = ancDroit = nullptr;
 	this->id = _id;
 }
@@ -97,7 +97,6 @@ short int Noeud<T>::getID() const { return this->id; }
 //*/
 //template<class T>
 //void Noeud<T>::setCellule(T _cellule) { this->cell = _cellule; }
-
 
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 

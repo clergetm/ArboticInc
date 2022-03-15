@@ -139,11 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arbre.cpp" />
     <ClCompile Include="ChromoCell.cpp" />
     <ClCompile Include="ColorCell.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Noeud.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arbre.h" />

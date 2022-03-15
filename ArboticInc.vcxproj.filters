@@ -30,17 +30,11 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Arbre.cpp">
-      <Filter>Source Files\Arbre</Filter>
-    </ClCompile>
     <ClCompile Include="ChromoCell.cpp">
       <Filter>Source Files\Arbre\Cellules</Filter>
     </ClCompile>
     <ClCompile Include="ColorCell.cpp">
       <Filter>Source Files\Arbre\Cellules</Filter>
-    </ClCompile>
-    <ClCompile Include="Noeud.cpp">
-      <Filter>Source Files\Arbre</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

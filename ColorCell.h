@@ -5,9 +5,9 @@ using namespace std;
 class ColorCell
 {
 private:
-	short int rouge = 0;
-	short int vert = 0;
-	short int bleu = 0;
+	short int rouge;
+	short int vert;
+	short int bleu;
 
 public:
 	ColorCell();									// Constructeur par défaut

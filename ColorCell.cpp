@@ -6,7 +6,9 @@ using namespace std;
 
 // Constructeur par défaut
 ColorCell::ColorCell() {
-	this->rouge = this->vert = this->bleu = 0;
+	this->rouge = 0;
+	this->vert = 0;
+	this->bleu = 0;
 }
 
 /**

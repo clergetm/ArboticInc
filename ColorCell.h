@@ -54,26 +54,13 @@ public:
 	}
 
 
-	friend istream& operator << (istream& in, ColorCell& colorcell) {
+	friend ostream& operator<< (ostream& out, ColorCell& colorcell) {
 
-		in << colorcell.rouge;
-		in << colorcell.vert;
-		in << colorcell.bleu;
+		out << colorcell.toString();
 
-		return in;
+		return out;
 	}
 
-	friend istream& operator + (istream& in, ColorCell& colorcell) {
-
-		in + colorcell.rouge;
-		in + colorcell.vert;
-		in + colorcell.bleu;
-
-		return in;
-	}
-
-}
-	
 };
 
 

@@ -113,7 +113,7 @@ bool Noeud<T>::estUneFeuille() const { return (this->ancGauche == nullptr) && (t
 * - B est une feuille avec une ColorCell	0	0	0	et ID 2.
 * - C a comme ancêtres A (gauche) et B (droit)			et ID 3.
 * - C->toString() retourne :
-*				3 1 2 0 127 127 127
+*				3 1 2 127 127 127
 */
 template<class T>
 string Noeud<T>::toString() const {

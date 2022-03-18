@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 using namespace std;
 
 class ColorCell
@@ -24,31 +25,58 @@ public:
 
 	string toString() const;						// Représentation textuelle de ColorCell
 
-	/**
-	* Surcharge de l'opérateur +
-	* Retourne une nouvelle ColorCell
-	* @param c : la seconde ColorCell
-	*/
 	ColorCell operator + (ColorCell c) {
 		// Initialisation des différentes couleurs
-		short int _rouge;
-		short int _vert;
-		short int _bleu;
+		short int bleu;
+		short int rouge;
+		short int vert;
 
 		//Initialisation des différents opérateurs de couleurs
+		//Bleu
+		bleu = (this->bleu + (c.bleu)) / 2;
 
 		//Rouge
-		_rouge = (this->rouge + (c.getRouge())) / 2;
+		rouge = (this->rouge + (c.rouge)) / 2;
 
 		//Vert
-		_vert = (this->vert + (c.getVert())) / 2;
+		vert = (this->vert + (c.vert)) / 2;
 
-		//Bleu
-		_bleu = (this->bleu + (c.getBleu())) / 2;
+		return ColorCell(bleu, rouge, vert);
+	}
 
-		return ColorCell(_rouge, _vert, _bleu);
+	friend istream& operator>> (istream& in, ColorCell& colorcell)
+	{
+		in >> colorcell.rouge;
+		in >> colorcell.vert;
+		in >> colorcell.bleu;
+
+		return in;
 	}
 
 
+	friend istream& operator << (istream& in, ColorCell& colorcell) {
 
+		in << colorcell.rouge;
+		in << colorcell.vert;
+		in << colorcell.bleu;
+
+		return in;
+	}
+
+	friend istream& operator + (istream& in, ColorCell& colorcell) {
+
+		in + colorcell.rouge;
+		in + colorcell.vert;
+		in + colorcell.bleu;
+
+		return in;
+	}
+
+}
+	
 };
+
+
+
+
+

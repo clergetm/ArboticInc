@@ -23,4 +23,26 @@ public:
 	void setBleu(short int);						// Setter de bleu, vérifie que la valeur est entre 0 et 255
 
 	string toString() const;						// Représentation textuelle de ColorCell
+
+	ColorCell operator + (ColorCell c) {
+		// Initialisation des différentes couleurs
+		short int bleu;
+		short int rouge;
+		short int vert;
+
+		//Initialisation des différents opérateurs de couleurs
+		//Bleu
+		bleu = (this->bleu + (c.bleu)) / 2;
+
+		//Rouge
+		rouge = (this->rouge + (c.rouge)) / 2;
+
+		//Vert
+		vert = (this->vert + (c.vert)) / 2;
+
+		return ColorCell(bleu, rouge, vert);
+	}
+
+
+
 };

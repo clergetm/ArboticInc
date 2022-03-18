@@ -24,23 +24,29 @@ public:
 
 	string toString() const;						// Représentation textuelle de ColorCell
 
+	/**
+	* Surcharge de l'opérateur +
+	* Retourne une nouvelle ColorCell
+	* @param c : la seconde ColorCell
+	*/
 	ColorCell operator + (ColorCell c) {
 		// Initialisation des différentes couleurs
-		short int bleu;
-		short int rouge;
-		short int vert;
+		short int _rouge;
+		short int _vert;
+		short int _bleu;
 
 		//Initialisation des différents opérateurs de couleurs
-		//Bleu
-		bleu = (this->bleu + (c.bleu)) / 2;
 
 		//Rouge
-		rouge = (this->rouge + (c.rouge)) / 2;
+		_rouge = (this->rouge + (c.getRouge())) / 2;
 
 		//Vert
-		vert = (this->vert + (c.vert)) / 2;
+		_vert = (this->vert + (c.getVert())) / 2;
 
-		return ColorCell(bleu, rouge, vert);
+		//Bleu
+		_bleu = (this->bleu + (c.getBleu())) / 2;
+
+		return ColorCell(_rouge, _vert, _bleu);
 	}
 
 

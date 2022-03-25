@@ -85,3 +85,11 @@ void ColorCell::setBleu(short int _valeur) {
 string ColorCell::toString() const {
 	return to_string(rouge) + " " + to_string(vert) + " " + to_string(bleu);
 }
+
+
+istream& operator>> (istream& in, ColorCell& colorcell)
+{
+	in >> colorcell.rouge >> colorcell.vert >> colorcell.bleu;
+
+	return in;
+}

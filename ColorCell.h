@@ -44,14 +44,7 @@ public:
 		return ColorCell(bleu, rouge, vert);
 	}
 
-	friend istream& operator>> (istream& in, ColorCell& colorcell)
-	{
-		in >> colorcell.rouge;
-		in >> colorcell.vert;
-		in >> colorcell.bleu;
-
-		return in;
-	}
+	friend istream& operator>> (istream& in, ColorCell& colorcell);
 
 
 	friend ostream& operator<< (ostream& out, ColorCell& colorcell) {

@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <fstream>
 #include "Noeud.h"
 #include "ColorCell.h"
 #include "Arbre.h"
@@ -41,9 +42,19 @@ void test_Operator_Plus() {
 	ColorCell B = A + C;
 	cout << "A+C= " << B.toString() << endl;
 }
+
+void test_C(){
+
+	ifstream f("TestColor");
+
+	ColorCell c = ColorCell();
+	f >> c;
+	cout << c;
+}
+
 int main() {
 	
-	test_Operator_Plus();
+	test_C();
 
 	system("pause");
 	return 0;

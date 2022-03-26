@@ -93,3 +93,29 @@ istream& operator>> (istream& in, ColorCell& colorcell)
 
 	return in;
 }
+
+ostream& operator<< (ostream& out, ColorCell& colorcell) {
+
+	out << colorcell.toString();
+
+	return out;
+}
+
+ColorCell ColorCell::operator + (ColorCell c) {
+	// Initialisation des différentes couleurs
+	short int bleu;
+	short int rouge;
+	short int vert;
+
+	//Initialisation des différents opérateurs de couleurs
+	//Bleu
+	bleu = (this->bleu + (c.bleu)) / 2;
+
+	//Rouge
+	rouge = (this->rouge + (c.rouge)) / 2;
+
+	//Vert
+	vert = (this->vert + (c.vert)) / 2;
+
+	return ColorCell(bleu, rouge, vert);
+}

@@ -36,7 +36,8 @@ public:
 */
 template<class T>
 Noeud<T>::Noeud(short int _id) {
-	ancGauche = ancDroit = nullptr;
+	ancGauche = nullptr;
+	ancDroit = nullptr;
 	this->id = _id;
 }
 
@@ -47,7 +48,8 @@ Noeud<T>::Noeud(short int _id) {
 */
 template<class T>
 Noeud<T>::Noeud(short int _id, T _valeur) {
-	ancGauche = ancDroit = nullptr;
+	ancGauche = nullptr;
+	ancDroit = nullptr;
 	this->id = _id;
 	this->cell = _valeur;
 }

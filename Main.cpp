@@ -212,20 +212,35 @@ void test_supprimer() {
 	ColorCell A = ColorCell(255, 255, 255);
 	ColorCell B = ColorCell(127, 127, 127);
 	ColorCell C = ColorCell(0, 0, 0);
+	ColorCell D = ColorCell(0, 0, 0);
+	ColorCell E = ColorCell(0, 0, 0);
 
 	auto NA = new Noeud<ColorCell>(1, A);
 	auto NB = new Noeud<ColorCell>(2, B);
 	auto NC = new Noeud<ColorCell>(3, C);
+	auto ND = new Noeud<ColorCell>(4, D);
+	auto NE = new Noeud<ColorCell>(5, E);
 
 
 	NA->ancGauche = NB;
 	NA->ancDroit = NC;
+	NB->ancGauche = ND;
+	NB->ancDroit = NE;
 
 	Population<ColorCell> pop;
 	pop.insererFin(Arbre<ColorCell>(NA));
 	pop.insererFin(Arbre<ColorCell>(NB));
+	pop.insererFin(Arbre<ColorCell>(NC));
+	pop.insererFin(Arbre<ColorCell>(ND));
+	pop.insererFin(Arbre<ColorCell>(NE));
 
 	cout << pop.toStringIndividu(1) << endl;
+
+	cout << "suppression de 4" << endl;
+	pop.supprimer(4);
+	cout << pop.toStringIndividu(1) << endl;
+
+	
 	cout << "suppression de 1" << endl;
 	pop.supprimer(1);
 	cout << pop.toStringIndividu(1) << endl;
@@ -233,7 +248,7 @@ void test_supprimer() {
 
 int main() {
 	setlocale(LC_CTYPE, "fr-FR");
-	test_ancetreETenfant();
+	test_supprimer();
 
 	system("pause");
 	return 0;

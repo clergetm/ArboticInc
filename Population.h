@@ -65,6 +65,23 @@ void Population<T>::insererFin(const Arbre<T>& _arbre) {
 */
 template<class T>
 void Population<T>::supprimer(const short int _id) {
+	// Il faut supprimer cet id parmi les ancêtres gauches et droits de tous les arbres
+	for (fixerTete(); estDansListe(); suivant()) {
+		// On récupère la valeur courante
+		NoeudPop<T>* noeudCourant = valeurCourante();
+		Arbre<T> arbreCourant = valeurCourante()->arbre;
+		// On vérifie qu’il y a un ancêtre à gauche et puis on vérifie si c’est l’id que l’on recherche
+		if (arbreCourant.racine->ancGauche != nullptr && arbreCourant.racine->ancGauche->getID() == _id) {
+			arbreCourant.racine->ancGauche = nullptr;
+		}
+		// On vérifie qu’il y a un ancêtre à droite et puis on vérifie si c’est l’id que l’on recherche
+		if (arbreCourant.racine->ancDroit != nullptr && noeudCourant->arbre.racine->ancDroit->getID() == _id) {
+			noeudCourant->arbre.racine->ancDroit = nullptr;
+		}
+	}
+
+	// On replace le pointeur courant sur le noeud à supprimer
+	trouver(_id);
 	// Il faut tout d’abord trouver l’élément voulu
 	if (trouver(_id)) {
 		NoeudPop<T> * noeudCourant = valeurCourante();

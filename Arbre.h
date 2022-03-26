@@ -89,7 +89,6 @@ string Arbre<T>::toString(Noeud<T>* _racine,short int _generation) {
 	return res;
 }
 
-
 /*
 * Fonction récursif de recherche avec parcours préfixe d’arbre
 * @param _racine : le noeud courant

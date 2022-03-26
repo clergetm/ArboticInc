@@ -9,6 +9,7 @@ public:
 	Arbre<T> arbre;
 	NoeudPop<T>* suivant;
 	
+	// CONSTRUCTEURS DESTRUCTEURS ////////////////////////////////////////////////////////////////////
 	/*
 	* Constructeur de NoeudPop
 	* @param _arbre : L’élément de ce noeud, sa valeur

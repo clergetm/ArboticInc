@@ -1,6 +1,5 @@
 #pragma once
 #include "NoeudPop.h"
-
 using namespace std;
 
 template<class T>
@@ -17,10 +16,13 @@ public:
 	void suivant();														// Changer courant pour le noeud suivant
 	bool estDansListe();												// Vérifier si courant est dans la liste
 	bool trouver(const short int _id);									// Trouver un élément précis en fonction de l’id 
-	bool ancetreCommun(const short int, const short int);				// Trouver l’ancêtre commun
+	
+	short int ancetreCommun(const short int, const short int);			// Trouver l’ancêtre commun
 	short int aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second);	// Fonction récursive pour trouver un ancetre commun
+	short int * enfantCommun(const short int, const short int);			// Trouver l’enfant commun
+	void ancetreETenfantCommuns(const short int, const short int);		// Afficher les informations pour l’ancêtre et l’enfant en commun
 
-	bool enfantCommun(const short int, const short int);				// Trouver l’enfant commun
+	string toStringIndividu(const short int _id);						// Obtenir la représentation textuelle d’un arbre
 private:
 	NoeudPop<T>* tete;													// Pointeur tete de liste
 	NoeudPop<T>* courant;												// Pointeur courant de liste
@@ -65,8 +67,8 @@ template<class T>
 void Population<T>::supprimer(const short int _id) {
 	// Il faut tout d’abord trouver l’élément voulu
 	if (trouver(_id)) {
-		NoeudPop<T> noeudCourant = valeurCourante();
-		courant->suivant = noeudCourant->suivant;
+		NoeudPop<T> * noeudCourant = valeurCourante();
+		this->courant->suivant = noeudCourant->suivant;
 
 		if (queue == noeudCourant) {
 			queue = courant;
@@ -123,13 +125,13 @@ bool Population<T>::trouver(const short int _id) {
 }
 
 /*
-* Fonction permettant d’afficher l’ancêtre commun de deux individus
+* Fonction permettant de trouver l’ancêtre commun de deux individus
 * @param _premierID : l’id du premier individu
 * @param _secondID : l’id du second individu
-* @returns true si un ancetre commun est trouvé
+* @returns l’id de l’ancêtre en commun
 */
 template<class T>
-bool Population<T>::ancetreCommun(const short int _premierID, const short int _secondID) {
+short int Population<T>::ancetreCommun(const short int _premierID, const short int _secondID) {
 	Arbre<T> premier = Arbre<T>();
 	Arbre<T> second = Arbre<T>();
 
@@ -152,26 +154,13 @@ bool Population<T>::ancetreCommun(const short int _premierID, const short int _s
 	}
 
 	// On possède les deux arbres, il faut trouver l’ancêtre commun
-	cout << "Pour les individus " << to_string(_premierID) << " et " << to_string(_secondID) << ":" << endl;
-	// Afficher l’ancêtre commun 
-	short int anc = aideAncetreCommun(premier, second);
-	if (anc > 0) {
-		cout << " - Il existe un ancêtre commun qui est " << to_string(anc) << "." << endl;
-		return true;
-	
-	} 
-	// Si aucun ancêtre commun
-	else {
-		cout << " - Il n’existe aucun ancêtre commun." << endl;
-	}
-	return false;
-
+	return aideAncetreCommun(premier, second);
 }
 
 /*
 * Fonction récursive pour trouver un ancêtre commun à partir de deux arbres donnés
-* @param _premier : l’arbre qui sera inspecter noeud par noeud.
-* @param _second : l’arbre qui sera parcouru à chaque recherche.
+* @param _premierID : l’arbre qui sera inspecter noeud par noeud.
+* @param _secondID : l’arbre qui sera parcouru à chaque recherche.
 * @returns un nombre négatif dans le cas où il n’y a pas d’ancêtre commun
 * sinon l’id de l’ancêtre commun
 */
@@ -181,7 +170,7 @@ short int Population<T>::aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second
 	if (_premier.estVide()) return -1;
 
 	// Chercher l’id dans le second arbre
-	if (_second.recherche(_premier.racine->getID()) < 0) {
+	if (_second.recherche(_premier.racine->getID()) <= 0) {
 		// Si non trouvé
 
 		short int estGauche = -1, estDroit =-1;
@@ -215,38 +204,92 @@ short int Population<T>::aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second
 	}
 }
 
-// TO DO //////////////////////////////////////////////////////////////////////////////////////////
 /*
-* Fonction permettant d’afficher l’enfant commun de deux individus
+* Fonction permettant de trouver l’enfant commun de deux individus
 * @param _premierID : l’id du premier individu
 * @param _secondID : l’id du second individu
-* @returns true si un enfant commun est trouvé
+* @returns l’id de l’enfant en commun et la différence de génération entre les deux id _premierID et _secondID
 */
 template<class T>
-bool Population<T>::enfantCommun(const short int _premier, const short int _second) {
-	Arbre<T>& premierInd;
-	Arbre<T>& secondInd;
-
-	// Récupération des deux élements
-	if (trouver(_premier)) {
-		premierInd = valeurCourante()->arbre;
-	}
-	else {
-		cout << "L’individu " << to_string(_premier) << " n’a pas été trouvé." << endl;
-		cout << "Fin de la recherche." << endl;
-		return false;
-	}
-	if (trouver(_second)) {
-		secondInd = valeurCourante()->arbre;
-	}
-	else {
-		cout << "L’individu " << to_string(_second) << " n’a pas été trouvé." << endl;
-		cout << "Fin de la recherche." << endl;
-		return false;
-	}
+short int * Population<T>::enfantCommun(const short int _premierID, const short int _secondID) {
+	
+	static short int infoEnfant[2];
+	infoEnfant[0] = -1; // enfant
+	infoEnfant[1] = -1; // différence de génération
 	// On possède les deux individus : Il faut trouver l’arbre dans lequel les deux individus apparaîssent.
+	for (fixerTete(); estDansListe(); suivant()) {
+		Arbre<T> tmp = valeurCourante()->arbre;
+		short int genPremier = tmp.recherche(_premierID);
 
+		// Si on trouve le premier individu, on peut cherche le second
+		// Sinon il est inutile de faire cette recherche, on passe au noeud suivant
+		if (genPremier >= 0) {
+			short int genSecond = tmp.recherche(_secondID);
+			// Si le second élément est trouvé
+			if (genSecond >= 0) {
+				// On retient l’id de l’arbre
+				infoEnfant[0] = tmp.racine->getID();
+
+				// On calcule la différence de génération
+				if (genPremier > genSecond) {
+					infoEnfant[1] = genPremier - genSecond;
+				}
+				else {
+					infoEnfant[1] = genSecond - genPremier;
+				}
+				// On arrête les recherches ici.
+				break;
+			}
+		}
+
+	}
+
+	return infoEnfant;
+}
+
+/*
+* Afficher les informations sur l’ancêtre et l’enfant en commun pour deux individus
+* @param _premierID : le premier individu à utiliser pour les recherches
+* @param _secondID : le second individu à utiliser pour les recherches
+*/
+template<class T>
+void Population<T>::ancetreETenfantCommuns(const short int _premierID, const short int _secondID) {
+	cout << "Pour les individus " << to_string(_premierID) << " et " << to_string(_secondID) << ":" << endl;
+
+	// Ancêtre en commun
+	short int anc = ancetreCommun(_premierID, _secondID);
+	if (anc >= 0) {
+		cout << " - Il existe un ancêtre commun qui est " << to_string(anc) << "." << endl;
+	}
+	// Si aucun ancêtre commun
+	else {
+		cout << " - Il n’existe aucun ancêtre commun." << endl;
+	}
+
+	// Enfant en commun
+	short int * infoEnfant= enfantCommun(_premierID, _secondID);
 	// Afficher la différence de génération entre les deux individus
-
+	if (*infoEnfant >= 0) {
+		cout << " - Il existe un enfant commun qui est " << to_string(*infoEnfant) << "." << endl;
+		cout << " - Il y a une différence de génération de " << to_string(*(infoEnfant+1)) << "." << endl;
+	}
 	// Si aucun arbre ne possède les deux individus
+	else {
+		cout << " - Il n’existe aucun enfant commun." << endl;
+	}
+}
+
+/*
+* Fonction renvoyant la représentation textuelle d’un individu faisant partie de cette population
+* @param _id : l’id d’un individu
+* @returns le string de l’arborescence d’un individu ou un message d’erreur.
+*/
+template<class T>
+string Population<T>::toStringIndividu(const short int _id) {
+	if (trouver(_id)) {
+		return valeurCourante()->arbre.toString();
+	}
+	else {
+		return "Cet individu ne fait pas partie de cette population.";
+	}
 }

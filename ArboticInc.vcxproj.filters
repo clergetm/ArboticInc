@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Arbre\Cellules">
       <UniqueIdentifier>{3c9a5e3f-b094-4ca9-91f2-8bb567296fa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Population">
+      <UniqueIdentifier>{c988b3c8-a1b6-4784-98e9-695a2ab89f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Population">
+      <UniqueIdentifier>{2d47b235-3bde-4338-a6da-669646d074d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -49,6 +55,15 @@
     </ClInclude>
     <ClInclude Include="ColorCell.h">
       <Filter>Header Files\Arbre\Cellules</Filter>
+    </ClInclude>
+    <ClInclude Include="Arbotic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NoeudPop.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Population.h">
+      <Filter>Header Files\Population</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,6 +13,10 @@ public:
 	Arbre(Noeud<T>*);													// Constructeur avec noeud racine
 	~Arbre();															// Destructeur par défaut
 
+	short int getR_ID();												// Obtenir l’ID de la racine
+	Noeud<T>* getR_Anc_Gauche();
+	Noeud<T>* getR_Anc_Droit();
+	T getR_cell();
 	bool estVide() const;												// Fonction vérifiant si l’arbre est vide
 	void viderArbre();													// Fonction initiant la suppression de l’arbre
 	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre
@@ -40,13 +44,56 @@ Arbre<T>::Arbre(Noeud<T>* _racine) { racine = _racine; }
 template<class T>
 Arbre<T>::~Arbre() { viderArbre(); }
 
+// GETTERS SETTERS ////////////////////////////////////////////////////////////////////////////////
+
+/*
+* Getter de l’ID de la racine.
+* Getter permettant simplement une meilleure lisibilité du code pour Population.
+* @returns l’id de la racine de l’arbre.
+*/
+template<class T>
+short int Arbre<T>::getR_ID() {
+	return racine->getID();
+}
+
+/*
+* Getter de l’ancêtre gauche de la racine.
+* Getter permettant simplement une meilleure lisibilité du code pour Population.
+* @returns le noeud ancêtre gauche de l’arbre.
+*/
+template<class T>
+Noeud<T>* Arbre<T>::getR_Anc_Gauche() {
+	return racine->ancGauche;
+}
+
+/**
+	* Getter de l’ancêtre droit de la racine.
+	* Getter permettant simplement une meilleure lisibilité du code pour Population.
+	* @returns : le noeud ancêtre droit de l’arbre.
+	*/
+template<class T>
+Noeud<T>* Arbre<T>::getR_Anc_Droit() {
+	return racine->ancDroite;
+}
+
+/*
+* Getter de la cellule de la racine.
+* Getter permettant simplement une meilleure lisibilité du code pour Population.
+* @returns : la cellule de la racine de l’arbre.
+*/
+template<class T>
+T Arbre<T>::getR_cell() {
+	return racine->cell;
+}
+
+
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 
-// Retourne True si l'arbre est vide
+// Retourne True si l'arbre est vide.
 template <class T>
 bool Arbre<T>::estVide() const { return racine == nullptr; }
 
-// Vider l'arbre
+// Vider l'arbre.
 template<class T>
 void Arbre<T>::viderArbre() {
 	aideVider(racine);
@@ -54,9 +101,9 @@ void Arbre<T>::viderArbre() {
 }
 
 /**
-* Fonction récursive pour vider l'arbre
-* Vider l'arbre à partir d'un noeud donné
-* @param _racine : un noeud de l'arbre
+* Fonction récursive pour vider l'arbre.
+* Vider l'arbre à partir d'un noeud donné.
+* @param _racine : un noeud de l'arbre.
 */
 template<class T>
 void Arbre<T>::aideVider(Noeud<T>* _racine) {
@@ -67,7 +114,7 @@ void Arbre<T>::aideVider(Noeud<T>* _racine) {
 	//	return;
 	//}
 	//aideVider(_racine->ancGauche);
-	//aideVider(_racine->ancDroit);
+	//aideVider(_racine->ancDroite);
 	//if (_racine != racine) {
 	//	cout << _racine->getID() << endl;
 	//	delete _racine;
@@ -75,8 +122,8 @@ void Arbre<T>::aideVider(Noeud<T>* _racine) {
 }
 
 /*
-* Fonction toString qui donne une représentation textuelle de tout l’arbre
-* @returns le string de la représentation complète
+* Fonction toString qui donne une représentation textuelle de tout l’arbre.
+* @returns le string de la représentation complète.
 */
 template<class T>
 string Arbre<T>::toString() {
@@ -84,11 +131,11 @@ string Arbre<T>::toString() {
 }
 
 /**
-* Fonction récursif pour retourner l'affichage de l'arbre
-* Retourner l'affichage l'arbre à partir d'un noeud donné et d'une génération donnée 
-* @param _racine : le noeud de départ
-* @param _generation : le nombre de tiret au lancement de la fonction
-* @returns la représentation textuelle à partir d’un noeud
+* Fonction récursif pour retourner l'affichage de l'arbre.
+* Retourner l'affichage l'arbre à partir d'un noeud donné et d'une génération donnée .
+* @param _racine :		le noeud de départ.
+* @param _generation :	le nombre de tiret au lancement de la fonction.
+* @returns				la représentation textuelle à partir d’un noeud.
 */
 template<class T>
 string Arbre<T>::aideToString(Noeud<T>* _racine,short int _generation) {
@@ -102,16 +149,16 @@ string Arbre<T>::aideToString(Noeud<T>* _racine,short int _generation) {
 		res += aideToString(_racine->ancGauche, _generation);
 
 		// Obtenir les valeurs de la cellule de l'ancêtre Droit
-		res += aideToString(_racine->ancDroit, _generation);
+		res += aideToString(_racine->ancDroite, _generation);
 	}
 	return res;
 }
 
 /*
-* Fonction de recherche dans l’arbre de l’id en paramètre
-* @param _id : l’id recherché
-* @returns generation : un nombre positif correspond à la génération où se trouve l’id recherché dans l’arbre
-* un nombre négatif dans le cas d’échec de la recherche
+* Fonction de recherche dans l’arbre de l’id en paramètre.
+* @param _id :			l’id recherché.
+* @returns generation : un nombre positif correspond à la génération où se trouve l’id recherché dans l’arbre.
+*						un nombre négatif dans le cas d’échec de la recherche.
 */
 template<class T>
 short int Arbre<T>::recherche(const short int& _id) {
@@ -127,14 +174,14 @@ short int Arbre<T>::recherche(const short int& _id) {
 }
 
 /*
-* Fonction récursif de recherche avec parcours préfixe d’arbre
-* @param _racine : le noeud courant
-* @param _id : l’id recherché
-* @param _generation : la génération courante
-* @param true si l’id recherché est trouvé,
-* la géneration est modifiée en conséquence du résultat de la recherche :
-* - La génération où se trouve l’id trouvé.
-* - un short int négatif si la recherche échoue
+* Fonction récursif de recherche avec parcours préfixe d’arbre.
+* @param _racine :		le noeud courant.
+* @param _id :			l’id recherché.
+* @param _generation :	la génération courante.
+* @returns				true si l’id recherché est trouvé.
+*						la géneration est modifiée en conséquence du résultat de la recherche :
+*						- La génération où se trouve l’id trouvé.
+*						- un short int négatif si la recherche échoue.
 */
 template<class T>
 bool Arbre<T>::aideRecherche(Noeud<T>* _racine, const short int& _id, short int& _generation) {
@@ -149,7 +196,7 @@ bool Arbre<T>::aideRecherche(Noeud<T>* _racine, const short int& _id, short int&
 	// S’il n’est pas du côté gauche
 	if (!estGauche) {
 		// On cherche du côté droit
-		bool estDroit = aideRecherche(_racine->ancDroit, _id, _generation);
+		bool estDroit = aideRecherche(_racine->ancDroite, _id, _generation);
 		// On renvoit le résultat du côté droit 
 		return estDroit;
 	}

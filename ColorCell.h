@@ -6,9 +6,9 @@ using namespace std;
 class ColorCell
 {
 private:
-	short int rouge;													// La couleur rouge
-	short int vert;														// La couleur verte
-	short int bleue;														// La couleur bleue
+	short int rouge;													// La couleur rouge.
+	short int vert;														// La couleur verte.
+	short int bleue;													// La couleur bleue.
 
 public:
 	ColorCell();														// Constructeur par défaut.
@@ -30,8 +30,3 @@ public:
 	friend ostream& operator<< (ostream& out, ColorCell& colorcell);	// Surcharge de l’opérateur <<.
 
 };
-
-
-
-
-

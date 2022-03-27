@@ -11,7 +11,7 @@ using namespace std;
 void test_Noeud_Template() {
 
 	cout << "Test int" << endl;
-	Noeud<int> testInt = Noeud<int>(1,30);
+	Noeud<int> testInt = Noeud<int>(1, 30);
 	cout << "ID : " << testInt.getID() << " ";
 	cout << "valeur " << testInt.cell << endl;
 
@@ -24,10 +24,11 @@ void test_Noeud_Template() {
 }
 
 void test_toString() {
+	cout << "Test toString" << endl;
 	ColorCell A = ColorCell(255, 255, 255);
 	ColorCell B = ColorCell(127, 127, 127);
 	ColorCell C = ColorCell(0, 0, 0);
-	
+
 	Arbre<ColorCell> arbre;
 	arbre.racine = new Noeud<ColorCell>(2, B);
 	arbre.racine->ancGauche = new Noeud<ColorCell>(1, A);
@@ -37,6 +38,7 @@ void test_toString() {
 }
 
 void test_Operator_Plus() {
+	cout << "Test surcharge +" << endl;
 	ColorCell A = ColorCell(255, 255, 255);
 	cout << " A = " << A.toString() << endl;
 	ColorCell C = ColorCell(0, 0, 0);
@@ -45,7 +47,8 @@ void test_Operator_Plus() {
 	cout << "A+C= " << B.toString() << endl;
 }
 
-void test_C(){
+void test_C() {
+	cout << "Test fichier et surcharges << >>" << endl;
 
 	ifstream f("TestColor.txt");
 
@@ -55,6 +58,8 @@ void test_C(){
 }
 
 void test_recherche() {
+	cout << "Test recherche" << endl;
+
 	/*
 			A
 		B		C
@@ -67,7 +72,7 @@ void test_recherche() {
 	ColorCell B = D + E;
 	ColorCell C = D + F;
 	ColorCell A = B + C;
-	
+
 	Arbre<ColorCell> arbre;
 	arbre.racine = new Noeud<ColorCell>(1, A);
 	auto NB = new Noeud<ColorCell>(2, B);
@@ -82,7 +87,7 @@ void test_recherche() {
 
 	arbre.racine->ancGauche = NB;
 	arbre.racine->ancDroite = NC;
-	
+
 	cout << arbre.toString() << endl;
 	cout << "resultat recherche : " << arbre.recherche(4) << endl;
 	cout << "resultat recherche : " << arbre.recherche(2) << endl;
@@ -91,6 +96,7 @@ void test_recherche() {
 }
 
 void test_ancetreCommun() {
+	cout << "Test ancetreCommun" << endl;
 	ColorCell D = ColorCell(255, 255, 255);
 	ColorCell F = ColorCell(127, 127, 127);
 	ColorCell E = ColorCell(0, 0, 0);
@@ -112,7 +118,7 @@ void test_ancetreCommun() {
 	NB->ancDroite = NE;
 	NC->ancGauche = ND;
 	NC->ancDroite = NF;
-	
+
 
 	Population<ColorCell> pop;
 	pop.insererFin(NA);
@@ -121,14 +127,15 @@ void test_ancetreCommun() {
 	pop.insererFin(ND);
 	pop.insererFin(NE);
 	pop.insererFin(NF);
-	
+
 	cout << pop.ancetreCommun(2, 3) << endl;
 
 	pop.supprimer(1);
-	cout <<pop.ancetreCommun(2, 4) << endl;
+	cout << pop.ancetreCommun(2, 4) << endl;
 }
 
 void test_enfantCommun() {
+	cout << "Test enfantCommun" << endl;
 	ColorCell D = ColorCell(255, 255, 255);
 	ColorCell F = ColorCell(127, 127, 127);
 	ColorCell E = ColorCell(0, 0, 0);
@@ -161,13 +168,14 @@ void test_enfantCommun() {
 	pop.insererFin(NE);
 	pop.insererFin(NF);
 
-	short int * info =  pop.enfantCommun(4, 5);
+	short int* info = pop.enfantCommun(4, 5);
 	cout << "enfant = " << *info << endl;
-	cout << "diff génération = " << *(info +1) << endl;
+	cout << "diff génération = " << *(info + 1) << endl;
 
 }
 
 void test_ancetreETenfant() {
+	cout << "Test ancetreETenfant" << endl;
 	ColorCell D = ColorCell(255, 255, 255);
 	ColorCell F = ColorCell(127, 127, 127);
 	ColorCell E = ColorCell(0, 0, 0);
@@ -209,6 +217,7 @@ void test_ancetreETenfant() {
 }
 
 void test_supprimer() {
+	cout << "Test supprimer" << endl;
 	ColorCell A = ColorCell(255, 255, 255);
 	ColorCell B = ColorCell(127, 127, 127);
 	ColorCell C = ColorCell(0, 0, 0);
@@ -240,10 +249,12 @@ void test_supprimer() {
 	pop.supprimer(4);
 	cout << pop.toStringIndividu(1) << endl;
 
-	
+
 	cout << "suppression de 1" << endl;
 	pop.supprimer(1);
 	cout << pop.toStringIndividu(1) << endl;
+
+	pop.supprimer(1);
 }
 
 void test_generer() {
@@ -289,15 +300,15 @@ void test_generer() {
 
 int main() {
 	setlocale(LC_CTYPE, "fr-FR");
-	/* test_toString();
-	test_Operator_Plus();
-	test_C();
-	test_recherche();
-	test_ancetreCommun();
-	test_enfantCommun();
-	test_ancetreETenfant();
-	test_supprimer(); */
-	test_generer();
+	//test_toString();
+	//test_Operator_Plus();
+	//test_C();
+	//test_recherche();
+	//test_ancetreCommun();
+	//test_enfantCommun();
+	//test_ancetreETenfant();
+	test_supprimer();
+	//test_generer();
 	system("pause");
 	return 0;
 }

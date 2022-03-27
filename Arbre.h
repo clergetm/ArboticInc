@@ -7,40 +7,42 @@ template<class T>
 class Arbre
 {
 public:
-	Noeud<T>* racine;													// Le noeud racine de l’arbre
+	Noeud<T>* racine;													// Le noeud racine de l’arbre.
 
-	Arbre();															// Constructeur par défaut
-	Arbre(Noeud<T>*);													// Constructeur avec noeud racine
-	~Arbre();															// Destructeur par défaut
+	Arbre();															// Constructeur par défaut.
+	Arbre(Noeud<T>*);													// Constructeur avec noeud racine.
+	~Arbre();															// Destructeur par défaut.
 
-	short int getR_ID();												// Obtenir l’ID de la racine
-	Noeud<T>* getR_Anc_Gauche();
-	Noeud<T>* getR_Anc_Droit();
-	T getR_cell();
-	bool estVide() const;												// Fonction vérifiant si l’arbre est vide
-	void viderArbre();													// Fonction initiant la suppression de l’arbre
-	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre
+	short int getR_ID();												// Obtenir l’ID de la racine.
+	Noeud<T>* getR_Anc_Gauche();										// Obtenir l’ancêtre gauche de la racine.
+	Noeud<T>* getR_Anc_Droit();											// Obtenir l’ancêtre droite de la racine.
+	T getR_cell();														// Obtenir la cellule de la racine.
+	
+	bool estVide() const;												// Fonction vérifiant si l’arbre est vide.
+	string toString();													// Représentation textuelle de l’arbre.
+	short int recherche(const short int& _id);							// Fonction initiant la recherche.
+private:
+	void viderArbre();													// Fonction initiant la suppression de l’arbre.
+	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre.
+	string aideToString(Noeud<T>*, short int);							// Fonction récursive de toString.
+	bool aideRecherche(Noeud<T>*, const short int&, short int&);		// Fonction récursive de recherche.
 
-	string toString();													// Représentation textuelle de l’arbre
-	string aideToString(Noeud<T>*, short int);							// Fonction récursive de toString
-
-	short int recherche(const short int& _id);							// Fonction initiant la recherche
-	bool aideRecherche(Noeud<T>*, const short int&, short int&);		// Fonction récursive de recherche
 };
 
 // CONSTRUCTEURS DESTRUCTEURS /////////////////////////////////////////////////////////////////////
 
-// Constructeur par défaut
+// Constructeur par défaut.
 template<class T>
 Arbre<T>::Arbre() { racine = nullptr; }
 
 /*
-* Constructeur de l’arbre avec racine
-* @param _noeud : la racine de l’arbre
+* Constructeur de l’arbre avec racine.
+* @param _noeud : la racine de l’arbre.
 */
 template<class T>
 Arbre<T>::Arbre(Noeud<T>* _racine) { racine = _racine; }
 
+// Destructeur de Arbre.
 template<class T>
 Arbre<T>::~Arbre() { viderArbre(); }
 
@@ -85,7 +87,6 @@ template<class T>
 T Arbre<T>::getR_cell() {
 	return racine->cell;
 }
-
 
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 

@@ -22,7 +22,7 @@ public:
 	void supprimer(const short int _id);								// Suppression d’un noeud.
 
 	short int ancetreCommun(const short int, const short int);			// Trouver l’ancêtre commun.
-	short int * enfantCommun(const short int, const short int);			// Trouver l’enfant commun.
+	short int* enfantCommun(const short int, const short int);			// Trouver l’enfant commun.
 	void ancetreETenfantCommuns(const short int, const short int);		// Afficher les informations pour l’ancêtre et l’enfant en commun.
 
 	string toStringIndividu(const short int _id);						// Obtenir la représentation textuelle d’un arbre.
@@ -36,7 +36,7 @@ private:
 	NoeudPop<T>* courant;												// Pointeur courant de liste.
 	NoeudPop<T>* queue;													// Pointeur queue de liste.
 	short int nextID;													// Le prochain ID à utiliser.
-	
+
 	void insererFin(const Arbre<T>&);									// Insérer un nouveau noeud à la fin.
 
 	short int aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second);	// Fonction récursive pour trouver un ancetre commun.
@@ -55,7 +55,7 @@ Population<T>::Population() {
 
 // Destructeur par défaut.
 template<class T>
-Population<T>::~Population(){
+Population<T>::~Population() {
 	while (tete != nullptr)
 	{
 		courant = tete;
@@ -113,7 +113,7 @@ void Population<T>::insererFin(T& _cell) {
 	this->insererFin(Arbre<T>(newNoeud));
 }
 
-/* 
+/*
 * Insérer un noeud en tant qu’individu.
 * @param _noeud : le noeud à insérer dans la population.
 */
@@ -128,33 +128,37 @@ void Population<T>::insererFin(Noeud<T>* _noeud) {
 */
 template<class T>
 void Population<T>::supprimer(const short int _id) {
-	// Il faut supprimer cet id parmi les ancêtres gauches et droits de tous les arbres
-	for (fixerTete(); estDansListe(); suivant()) {
-		// On récupère la valeur courante
-		NoeudPop<T>* nCourant = valeurCourante();
-		// On vérifie qu’il y a un ancêtre à cellG et puis on vérifie si c’est l’id que l’on recherche
-		if (nCourant->getR_Anc_Gauche() != nullptr && nCourant->getR_Anc_Gauche()->getID() == _id) {
-			// getR() et non getR_Anc_Gauche afin de pouvoir modifier la valeur
-			nCourant->getR()->ancGauche = nullptr;
-		}
-		// On vérifie qu’il y a un ancêtre à cellD et puis on vérifie si c’est l’id que l’on recherche
-		if (nCourant->getR_Anc_Droit() != nullptr && nCourant->getR_Anc_Droit()->getID() == _id) {
-			// getR() et non getR_Anc_Droit afin de pouvoir modifier la valeur
-			nCourant->getR()->ancDroite = nullptr;
-		}
-	}
-
-	// On replace le pointeur courant sur le noeud à supprimer
-	trouver(_id);
 	// Il faut tout d’abord trouver l’élément voulu
 	if (trouver(_id)) {
-		NoeudPop<T> * noeudCourant = valeurCourante();
+		// Il faut supprimer cet id parmi les ancêtres gauches et droits de tous les arbres
+		for (fixerTete(); estDansListe(); suivant()) {
+			// On récupère la valeur courante
+			NoeudPop<T>* nCourant = valeurCourante();
+			// On vérifie qu’il y a un ancêtre à cellG et puis on vérifie si c’est l’id que l’on recherche
+			if (nCourant->getR_Anc_Gauche() != nullptr && nCourant->getR_Anc_Gauche()->getID() == _id) {
+				// getR() et non getR_Anc_Gauche afin de pouvoir modifier la valeur
+				nCourant->getR()->ancGauche = nullptr;
+			}
+			// On vérifie qu’il y a un ancêtre à cellD et puis on vérifie si c’est l’id que l’on recherche
+			if (nCourant->getR_Anc_Droit() != nullptr && nCourant->getR_Anc_Droit()->getID() == _id) {
+				// getR() et non getR_Anc_Droit afin de pouvoir modifier la valeur
+				nCourant->getR()->ancDroite = nullptr;
+			}
+		}
+
+		// On replace le pointeur courant sur le noeud à supprimer
+		trouver(_id);
+
+		NoeudPop<T>* noeudCourant = valeurCourante();
 		this->courant->suivant = noeudCourant->suivant;
 
 		if (queue == noeudCourant) {
 			queue = courant;
 		}
 		delete noeudCourant;
+	}
+	else {
+		cout << "Cet individu ne peut pas être supprimé, il ne fait pas partie de cette population." << endl;
 	}
 }
 
@@ -178,7 +182,7 @@ void Population<T>::fixerTete() {
 // Transporte le pointeur courant au noeud suivant dans la liste.
 template<class T>
 void Population<T>::suivant() {
-	if(courant != nullptr) courant = courant->suivant;
+	if (courant != nullptr) courant = courant->suivant;
 }
 
 /*
@@ -230,7 +234,7 @@ short int Population<T>::ancetreCommun(const short int _premierID, const short i
 	}
 	else {
 		cout << "L’individu " << to_string(_premierID) << " n’a pas été trouvé." << endl;
-		cout << "Fin de la recherche." << endl; 
+		cout << "Fin de la recherche." << endl;
 		return false;
 	}
 	if (trouver(_secondID)) {
@@ -262,7 +266,7 @@ short int Population<T>::aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second
 	if (_second.recherche(_premier.getR_ID()) <= 0) {
 		// Si non trouvé
 
-		short int estGauche = -1, estDroit =-1;
+		short int estGauche = -1, estDroit = -1;
 		// On cherche avec l’ancêtre cellG
 		if (_premier.getR_Anc_Gauche() != nullptr) {
 			// On récupère l’ancêtre de cellG
@@ -285,10 +289,11 @@ short int Population<T>::aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second
 			}
 		}
 		// Si on a trouvé à cellG
-		return estGauche; 
+		return estGauche;
 
-	// On a trouvé un résultat 
-	} else {
+		// On a trouvé un résultat 
+	}
+	else {
 		return _premier.getR_ID();
 	}
 }
@@ -297,12 +302,12 @@ short int Population<T>::aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second
 * Fonction permettant de trouver l’enfant commun de deux individus.
 * @param _premierID :	l’id du premier individu.
 * @param _secondID :	l’id du second individu.
-* @returns				l’id de l’enfant en commun et la différence de génération 
+* @returns				l’id de l’enfant en commun et la différence de génération
 						entre les deux id _premierID et _secondID.
 */
 template<class T>
-short int * Population<T>::enfantCommun(const short int _premierID, const short int _secondID) {
-	
+short int* Population<T>::enfantCommun(const short int _premierID, const short int _secondID) {
+
 	static short int infoEnfant[2];
 	infoEnfant[0] = -1; // enfant
 	infoEnfant[1] = -1; // différence de génération
@@ -357,11 +362,11 @@ void Population<T>::ancetreETenfantCommuns(const short int _premierID, const sho
 	}
 
 	// Enfant en commun
-	short int * infoEnfant= enfantCommun(_premierID, _secondID);
+	short int* infoEnfant = enfantCommun(_premierID, _secondID);
 	// Afficher la différence de génération entre les deux individus
 	if (*infoEnfant >= 0) {
 		cout << " - Il existe un enfant commun qui est " << to_string(*infoEnfant) << "." << endl;
-		cout << " - Il y a une différence de génération de " << to_string(*(infoEnfant+1)) << "." << endl;
+		cout << " - Il y a une différence de génération de " << to_string(*(infoEnfant + 1)) << "." << endl;
 	}
 	// Si aucun arbre ne possède les deux individus
 	else {

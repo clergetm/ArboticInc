@@ -5,96 +5,96 @@ using namespace std;
 template<class T>
 class Noeud {
 private:
-	short int id;					// READ-ONLY
+	short int id;					// READ-ONLY.
 public:
-	T cell;							// Valeur du Noeud
-	Noeud<T>* ancGauche;			// Élément Gauche
-	Noeud<T>* ancDroit;				// Élément Droit
+	T cell;							// Valeur du Noeud.
+	Noeud<T>* ancGauche;			// Ancêtre de Gauche.
+	Noeud<T>* ancDroite;			// Ancêtre de Droite.
 
-	Noeud<T>(short int, T);			// Constructeur complet, id et valeur
-	Noeud<T>(short int);			// Constructeur avec id
-	~Noeud<T>();					// Destructeur
+	Noeud<T>(short int, T);			// Constructeur complet, id et valeur.
+	Noeud<T>(short int);			// Constructeur avec id.
+	~Noeud<T>();					// Destructeur.
 	
-	short int getID() const;		// Getter ID
-	//Noeud<T>* getancGauche() const;	// Getter ancGauche
-	//Noeud<T>* getancDroit() const;	// Getter ancDroit
-	//T getCellule() const;			// Getter valeur
+	short int getID() const;		// Getter ID.
+	//Noeud<T>* getancGauche() const;	// Getter ancGauche.
+	//Noeud<T>* getancDroit() const;	// Getter ancDroite.
+	//T getCellule() const;			// Getter valeur.
 	//
-	//void setancGauche(Noeud<T>*);	// Getter ancGauche
-	//void setancDroit(Noeud<T>*);	// Getter ancDroit
-	//void setCellule(T);				// Setter valeur
+	//void setancGauche(Noeud<T>*);	// Getter ancGauche.
+	//void setancDroit(Noeud<T>*);	// Getter ancDroite.
+	//void setCellule(T);				// Setter valeur.
 	
-	bool estUneFeuille() const;		// Vérifier si le noeud est une feuille
-	string toString() const;		// Représentation textuelle du Noeud
+	bool estUneFeuille() const;		// Vérifier si le noeud est une feuille.
+	string toString() const;		// Représentation textuelle du Noeud.
 };
    
 // CONSTRUCTEURS DESTRUCTEURS /////////////////////////////////////////////////////////////////////
 
 /**
-* Constructuer de Noeud avec id
-* @param _id:		identifiant du Noeud
+* Constructuer de Noeud avec id.
+* @param _id:		identifiant du Noeud.
 */
 template<class T>
 Noeud<T>::Noeud(short int _id) {
 	ancGauche = nullptr;
-	ancDroit = nullptr;
+	ancDroite = nullptr;
 	this->id = _id;
 }
 
 /**
-* Constructuer de Noeud avec id et valeur
-* @param _id:		identifiant du Noeud
-* @param _valeur:	une cellule ColorCell ou ChromoCell
+* Constructuer de Noeud avec id et valeur.
+* @param _id:		identifiant du Noeud.
+* @param _valeur:	une cellule ColorCell ou ChromoCell.
 */
 template<class T>
 Noeud<T>::Noeud(short int _id, T _valeur) {
 	ancGauche = nullptr;
-	ancDroit = nullptr;
+	ancDroite = nullptr;
 	this->id = _id;
 	this->cell = _valeur;
 }
 
-// Destructeur de Noeud
+// Destructeur de Noeud.
 template<class T>
 Noeud<T>::~Noeud() {
 	delete ancGauche;
-	delete ancDroit;
+	delete ancDroite;
 }
 
 // GETTERS SETTERS ////////////////////////////////////////////////////////////////////////////////
 
-// Getter de id
+// Getter de id.
 template<class T>
 short int Noeud<T>::getID() const { return this->id; }
 
-//// Getter de ancGauche
+//// Getter de ancGauche.
 //template<class T>
 //Noeud<T>* Noeud<T>::getancGauche() const { return this->ancGauche; }
 //
-//// Getter de ancDroit
+//// Getter de ancDroite.
 //template<class T>
-//Noeud<T>* Noeud<T>::getancDroit() const { return this->ancDroit; }
+//Noeud<T>* Noeud<T>::getancDroit() const { return this->ancDroite; }
 //
-//// Getter de Cellule
+//// Getter de Cellule.
 //template<class T>
 //T Noeud<T>::getCellule() const { return this->cell; }
 
 ///**
-//* Setter de ancGauche
+//* Setter de ancGauche.
 //* @param _ancetre: un Noeud ancetre
 //*/
 //template<class T>
 //void Noeud<T>::setancGauche(Noeud<T>* _ancetre){ this->ancGauche = _ancetre; }
 //
 ///**
-//* Setter de ancDroit
+//* Setter de ancDroite.
 //* @param _ancetre: un Noeud ancetre
 //*/
 //template<class T>
-//void Noeud<T>::setancDroit(Noeud<T>* _ancetre) { this->ancDroit = _ancetre; }
+//void Noeud<T>::setancDroit(Noeud<T>* _ancetre) { this->ancDroite = _ancetre; }
 //
 ///**
-//* Setter de cellule
+//* Setter de cellule.
 //* @param _cellule: une cellule ColorCell ou ChromoCell
 //*/
 //template<class T>
@@ -102,13 +102,16 @@ short int Noeud<T>::getID() const { return this->id; }
 
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 
-// Return True si le Noeud est une feuille
+/** 
+* Vérifie si le Noeud est une feuille.
+* @returns true si c’est un noeud sans Ancêtre Gauche et Droite.
+*/
 template<class T>
-bool Noeud<T>::estUneFeuille() const { return (this->ancGauche == nullptr) && (this->ancDroit == nullptr); }
+bool Noeud<T>::estUneFeuille() const { return (this->ancGauche == nullptr) && (this->ancDroite == nullptr); }
 
 /**
-* Fonction toString du noeud
-* Le toString doit retourner un string de cette forme
+* Fonction toString du noeud.
+* Le toString doit retourner un string de cette forme.
 * Exemple :
 * - A, B et C sont 3 noeuds.
 * - A est une feuille avec une ColorCell	255	255	255	et ID 1.
@@ -133,9 +136,9 @@ string Noeud<T>::toString() const {
 		res += "/ ";
 	}
 
-	if (ancDroit != nullptr) {
+	if (ancDroite != nullptr) {
 		// res : 3_1_2_
-		res += to_string(ancDroit->getID()) + " ";
+		res += to_string(ancDroite->getID()) + " ";
 	}
 	else
 	{

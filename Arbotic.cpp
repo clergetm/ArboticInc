@@ -2,86 +2,127 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Population.h"
 using namespace std;
 
-void Population::ouverture_transactions(string _fichierTransaction) {
+void Arbotic::ouverture_population(string _fichierPopulation) {
+
+	ifstream fin(_fichierPopulation); //Lecture
+
+	// Variables composant un client
+	string type;
+	short int NB;
+	int num;
+	int i = 1;
+	fin >> type >> NB;
+
+	// Tant que l’on peut recupérer les informations
+	while (i < NB + 1) {
+
+	}
+	
+
+	// Fermer la lecture du fichier
+	fin.close();
+}
+
+void Arbotic::sauvegarde_population(string _nomFichierPopulation) {
+
+	// Création/Ouverture du fichier de sauvegarde
+	ofstream sortie;
+	sortie.open(_nomFichierPopulation);
+
+	// On parcourt tous la clients et on sauvegarde les informations
+	
+
+	// Fermeture du fichier
+	sortie.close();
+}
+
+
+
+
+void Arbotic::ouverture_transactions(string _fichierTransaction) {
 
 	ifstream fin(_fichierTransaction); //Lecture
 
 	char caractere;
-	//Implémentaion dans supprimerClient insérerClient
-	string nomClient;
-	//Implémentaion dans insérerClient
-	short int numero;
-	string rue;
+	
+
+	short int NB;
+	int ID;
+	int X;
+	int Y;
+	string type;
 
 	//Implémentaion des variables nécessaires 
-	string source;
-	string nomFichierClient;
-	string nomFichierCommande;
-	string destinataire;
-	string nomCookie;
-	string courant;
-	short int quantiteCookie;
+	
 
 	while (fin >> caractere) {
 		switch (caractere) {
 
-			// Suppression d'un Client
+			// Créer une population vide de type ...
 		case 'C': {
-			
+			fin >> type;
+			cout << "Créer une population vide de type:" << type << "\n" << endl;
+
 			break;
 		}
 
-				// Ajout d'un Client
+				// Ajoute à la population courante un individu sans parent de type... ayant les valeurs ... Population.insererFin(Cellule)
 		case 'A': {
-			
+			fin >> type;
+			cout << "Ajoute à la population courante un individu sans parents de type" << type << "ayant les valeurs:" << endl;
+			population.insererFin(Cellule);
 			break;
 		}
 
-				// Ajout d'une commande d'un client
+				// Ouverture du fichier population
 		case 'O': {
-			cout << "Ouverture du fichier population \n" << end1;
+			cout << "Ouverture du fichier population \n" << endl;
 			fin >> nomFichierPopulation;
 			ouverture_population(nomFichierPopulation);
 			break;
 		}
 
-				// Afficher les commandes faites par un Client
+				// Sauvegarde fichier population
 		case 'S': {
-			cout << "Sauvegarde du fichier population \n" << end1;
+			cout << "Sauvegarde du fichier population \n" << endl;
 			fin >> nomFichierPopulation;
 			sauvegarde_population(nomFichierPopulation);
 			break;
 		}
 
-				// Afficher les informations du meilleur cookie
+				// Génerer NB individues à partir de la population courante 
 		case '+': {
-			
+			fin >> NB;
+			cout << "Génère" << NB << "individues à partir de la population courante \n" << endl;
+			population.generer(NB);
+
 			break;
 		}
 
-				// Ouverture des fichiers de Clients et Commandes
+				//  Supprime un individu X
 		case '-': {
-			
+			fin >> ID;
+			cout << "Supprime l'individu" << ID << "\n" << endl;
+			population.supprimer(ID);
 			break;
 		}
 
-				// Sauvegarde des Clients et Commandes
-		case 'S': {
-			
-			break;
-		}
-
-				// Sauvegarde des Clients et Commandes
+				//  Trouve un ancêtre commun entre deux individus
 		case '?': {
-			
+			fin >> X >> Y;
+			cout << "Ancêtre commmun entre deux individu" << X << "et" << Y << ": \n" << endl;
+			population.ancetreETenfantCommuns(X,Y);
 			break;
 		}
 
-				// Sauvegarde des Clients et Commandes
+				//  Affiche l'arbre génétique complet de l'individu X
 		case '$': {
-			
+			fin >> X;
+			cout << "Affiche l'arbre génétique complet de l'individu" << X << "incluant ses caractériques: \n" << endl;
+			population.toStringIndividu(X);
 			break;
 		}
 

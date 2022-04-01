@@ -7,7 +7,6 @@ template<class T>
 class Arbre
 {
 private:
-	void viderArbre();													// Fonction initiant la suppression de l’arbre.
 	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre.
 	string aideToString(Noeud<T>*, short int);							// Fonction récursive de toString.
 	bool aideRecherche(Noeud<T>*, const short int&, short int&);		// Fonction récursive de recherche.
@@ -24,6 +23,7 @@ public:
 	Noeud<T>* getR_Anc_Droit();											// Obtenir l’ancêtre droite de la racine.
 	T getR_cell();														// Obtenir la cellule de la racine.
 	
+	void viderArbre();													// Fonction initiant la suppression de l’arbre.
 	bool estVide() const;												// Fonction vérifiant si l’arbre est vide.
 	string toString();													// Représentation textuelle de l’arbre.
 	short int recherche(const short int& _id);							// Fonction initiant la recherche.

@@ -33,6 +33,7 @@ public:
 	void insererFin(T&);												// Insérer un nouvel individu.
 	void insererFin(Noeud<T>*);											// Inserer un noeud. Utilisé lors de l’ouverture d’un fichier population
 	void supprimer(const short int _id);								// Suppression d’un noeud.
+	void viderListe();													// Vider la liste chaînée de son contenu.
 
 	short int ancetreCommun(const short int, const short int);			// Trouver l’ancêtre commun.
 	short int* enfantCommun(const short int, const short int);			// Trouver l’enfant commun.
@@ -51,7 +52,7 @@ public:
 template<class T>
 Population<T>::Population() {
 	tete = courant = queue = new NoeudPop<T>();
-	nextID = 1;
+	nextID = 0;
 }
 
 // Destructeur par défaut.
@@ -139,14 +140,21 @@ void Population<T>::supprimer(const short int _id) {
 			// On récupère la valeur courante
 			NoeudPop<T>* nCourant = valeurCourante();
 			// On vérifie qu’il y a un ancêtre à cellG et puis on vérifie si c’est l’id que l’on recherche
-			if (nCourant->getR_Anc_Gauche() != nullptr && nCourant->getR_Anc_Gauche()->getID() == _id) {
+			if (nCourant->getR_Anc_Gauche() != nullptr) {
+				short int _testid = nCourant->getR_Anc_Gauche()->getID();
+				if( _testid == _id) {
+				
 				// getR() et non getR_Anc_Gauche afin de pouvoir modifier la valeur
 				nCourant->getR()->ancGauche = nullptr;
+				}
 			}
 			// On vérifie qu’il y a un ancêtre à cellD et puis on vérifie si c’est l’id que l’on recherche
-			if (nCourant->getR_Anc_Droit() != nullptr && nCourant->getR_Anc_Droit()->getID() == _id) {
+			if (nCourant->getR_Anc_Droit() != nullptr) {
+				short int _testid = nCourant->getR_Anc_Droit()->getID();
+				if(_testid == _id) {
 				// getR() et non getR_Anc_Droit afin de pouvoir modifier la valeur
 				nCourant->getR()->ancDroite = nullptr;
+			}
 			}
 		}
 
@@ -219,6 +227,19 @@ bool Population<T>::trouver(const short int _id) {
 	return false;
 }
 
+template<class T>
+void Population<T>::viderListe() {
+	// On parcourt la liste et on supprime le noeud courant à chaque itération
+	while (tete->suivant!= nullptr) {
+		courant = tete->suivant;
+		courant->arbre.viderArbre();
+		tete->suivant = courant->suivant;
+		delete courant;
+	}
+	courant = queue = tete;
+	nextID = 0;
+}
+
 // FONCTIONS ARBOTIC
 
 /*
@@ -239,7 +260,7 @@ short int Population<T>::ancetreCommun(const short int _premierID, const short i
 	else {
 		cout << "L’individu " << to_string(_premierID) << " n’a pas été trouvé." << endl;
 		cout << "Fin de la recherche." << endl;
-		return false;
+		return -1;
 	}
 	if (trouver(_secondID)) {
 		second = valeurCourante()->arbre;
@@ -247,7 +268,7 @@ short int Population<T>::ancetreCommun(const short int _premierID, const short i
 	else {
 		cout << "L’individu " << to_string(_secondID) << " n’a pas été trouvé." << endl;
 		cout << "Fin de la recherche." << endl;
-		return false;
+		return -1;
 	}
 
 	// On possède les deux arbres, il faut trouver l’ancêtre commun
@@ -384,8 +405,10 @@ void Population<T>::ancetreETenfantCommuns(const short int _premierID, const sho
 */
 template<class T>
 void Population<T>::generer(const short int _nb) {
-	for (short int i = 0; i < _nb; i++) {
-		aideGenerer();
+	if (longueur() > 0) {
+		for (short int i = 0; i < _nb; i++) {
+			aideGenerer();
+		}
 	}
 }
 
@@ -416,8 +439,9 @@ void Population<T>::aideGenerer() {
 			NPopD = valeurCourante();
 		}
 
-		if (randG < 0 && randD < 0) {
-			break;
+		if (randG <= 0 && randD <= 0) {
+			// Forcer la sortie de la boucle
+			courant = queue;
 		}
 		// On décrémente les compteurs
 		randG--;

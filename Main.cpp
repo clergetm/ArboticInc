@@ -3,8 +3,10 @@
 #include <fstream>
 #include "Noeud.h"
 #include "ColorCell.h"
+#include "ChromoCell.h"
 #include "Arbre.h"
 #include "Population.h"
+#include "Arbotic.h"
 
 using namespace std;
 
@@ -300,6 +302,7 @@ void test_generer() {
 
 int main() {
 	setlocale(LC_CTYPE, "fr-FR");
+	//test_Noeud_Template();
 	//test_toString();
 	//test_Operator_Plus();
 	//test_C();
@@ -307,13 +310,16 @@ int main() {
 	//test_ancetreCommun();
 	//test_enfantCommun();
 	//test_ancetreETenfant();
-	test_supprimer();
+	//test_supprimer();
 	//test_generer();
 	const string PATH = "Fichiers/";
 	const string T_COLORCELL = PATH + "TRANSACTION_COLORCELL.txt";
 	const string T_CHROMOCELL = PATH + "TRANSACTION_CHROMOCELL.txt";
 	const string T_MIXTE = PATH + "TRANSACTION_MIXTE.txt";
 
+	Arbotic arbotic;
+
+	arbotic.O_transactions(T_COLORCELL);
 	system("pause");
 	return 0;
 }

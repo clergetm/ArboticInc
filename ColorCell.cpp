@@ -92,7 +92,7 @@ string ColorCell::toString() const {
 /*
 * Surcharge de l’opérateur >>. Récupération des informations formant une ColorCell.
 * @param _in :			le stream d’input.
-* @param _colorcell :	la colocell à modifier.
+* @param _colorcell :	la colorcell à modifier.
 * @returns				Le stream à jour.
 */
 istream& operator>> (istream& _in, ColorCell& _colorcell)

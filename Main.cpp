@@ -300,6 +300,35 @@ void test_generer() {
 	}
 }
 
+void test_chromocell() {
+	cout << "Test chromocell" << endl;
+
+	char paire[2];
+	paire[0] = 'A';
+	paire[1] = 'B';
+	char paire2[2];
+	paire2[0] = 'C';
+	paire2[1] = 'D';
+	char paire3[2];
+	paire3[0] = 'E';
+	paire3[1] = 'F';
+	char paire4[2];
+	paire4[0] = 'G';
+	paire4[1] = 'H';
+	ChromoCell cell = ChromoCell(paire, paire2, paire3, paire4);
+	cout << cell.toString() << endl;
+
+
+	ChromoCell cell2 = ChromoCell();
+	cin >> cell2;
+
+	cout << cell2.toString() << endl;
+
+	ChromoCell cell3 = cell + cell2;
+	cout << cell3.toString() << endl;
+
+}
+
 int main() {
 	setlocale(LC_CTYPE, "fr-FR");
 	//test_Noeud_Template();
@@ -312,14 +341,21 @@ int main() {
 	//test_ancetreETenfant();
 	//test_supprimer();
 	//test_generer();
+	//test_chromocell();
 	const string PATH = "Fichiers/";
 	const string T_COLORCELL = PATH + "TRANSACTION_COLORCELL.txt";
 	const string T_CHROMOCELL = PATH + "TRANSACTION_CHROMOCELL.txt";
 	const string T_MIXTE = PATH + "TRANSACTION_MIXTE.txt";
 
 	Arbotic arbotic;
+	srand(5);
+	//cout << "\n\n\n" << "T_COLORCELL" << "\n\n\n";
+	//arbotic.O_transactions(T_COLORCELL);
+	//cout << "\n\n\n" << "T_CHROMOCELL" << "\n\n\n";
+	//arbotic.O_transactions(T_CHROMOCELL);
+	cout << "\n\n\n" << "T_MIXTE" << "\n\n\n";
+	arbotic.O_transactions(T_MIXTE);
 
-	arbotic.O_transactions(T_COLORCELL);
 	system("pause");
 	return 0;
 }

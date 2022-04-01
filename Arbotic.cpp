@@ -11,7 +11,7 @@ Arbotic::Arbotic() {
 Arbotic::~Arbotic() {
 
 	colorPop.viderListe();
-	//chromoPop.viderListe();
+	chromoPop.viderListe();
 }
 
 
@@ -29,7 +29,7 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 	while (fin >> caractere) {
 		switch (caractere) {
 
-			// Créer une population vide de type ...
+		// Créer une population vide de type ...
 		case 'C': {
 			fin >> currentCell;
 			// En soit ne créer pas une nouvelle population mais vide la population courante
@@ -37,13 +37,13 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 			if (currentCell == "COLORCELL") {
 				colorPop.viderListe();
 			}
-			/*else {
-				chromoPop = Population<ChromoCell>();
-			}*/
+			else {
+				chromoPop.viderListe();
+			}
 			break;
 		}
 		
-				// Ajoute à la population courante un individu sans parent de type... ayant les valeurs ... Population.insererFin(Cellule)
+		// Ajoute à la population courante un individu sans parent de type... ayant les valeurs ... 
 		case 'A': {
 			fin >> type;
 			cout << "Ajoute à la population courante un individu sans parents de type : " << type << endl;
@@ -52,29 +52,30 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 				fin >> cell;
 				colorPop.insererFin(cell);
 			}
-			//else {
-			//	ChromoCell cell;
-			//	//fin >> cell;
-			//	chromoPop.insererFin(cell);
-			//}
+			else {
+				ChromoCell cell;
+				fin >> cell;
+				chromoPop.insererFin(cell);
+			}
 			break;
 		}
 
-				// Ouverture du fichier population
+		// Ouverture du fichier population
 		case 'O': {
 			fin >> txt;
 			cout << "Ouverture du fichier population " << txt << endl;
-
-			if (currentCell == "COLORCELL") {
+			if( txt.find("COLORCELL") != string::npos ) {
 				O_colorPop(txt);
+				currentCell = " COLORCELL";
 			}
-			/*else {
+			else {
 				O_chromoPop(txt);
-			}*/
+				currentCell = "CHROMOCELL";
+			}
 			break;
 		}
 
-				// Sauvegarde fichier population
+		// Sauvegarde fichier population
 		case 'S': {
 			fin >> txt;
 			cout << "Sauvegarde du fichier population " << txt << endl;
@@ -82,67 +83,67 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 				S_colorPop(txt);
 				colorPop.viderListe();
 			}
-			/*else {
+			else {
 				S_chromoPop(txt);
 				chromoPop.viderListe();
-			}*/
+			}
 			break;
 		}
 
-				// Génerer NB individues à partir de la population courante 
+		// Génerer NB individues à partir de la population courante 
 		case '+': {
 			fin >> NB;
 			cout << "Génère " << NB << " individus à partir de la population courante" << endl;
 			if (currentCell == "COLORCELL") {
 				colorPop.generer(NB);
 			}
-			/*else {
+			else {
 				chromoPop.generer(NB);
-			}*/
+			}
 
 			break;
 		}
 
-				//  Supprime un individu X
+		//  Supprime un individu X
 		case '-': {
 			fin >> ID;
 			cout << "Supprime l'individu " << ID << endl;
 			if (currentCell == "COLORCELL") {
 				colorPop.supprimer(ID);
 			}
-			/*else {
-				chromoPop.supprimer(NB);
-			}*/
+			else {
+				chromoPop.supprimer(ID);
+			}
 			break;
 		}
 
-				//  Trouve un ancêtre commun entre deux individus
+		//  Trouve un ancêtre commun entre deux individus
 		case '?': {
 			fin >> X >> Y;
 			cout << "Ancêtre commmun entre deux individus " << X << " et " << Y << endl;
 			if (currentCell == "COLORCELL") {
 				colorPop.ancetreETenfantCommuns(X, Y);
 			}
-			/*else {
+			else {
 				chromoPop.ancetreETenfantCommuns(X, Y);
-			}*/
+			}
 			break;
 		}
 
-				//  Affiche l'arbre génétique complet de l'individu X
+		//  Affiche l'arbre génétique complet de l'individu X
 		case '$': {
 			fin >> X;
 			cout << "Affiche l'arbre génétique complet de l'individu " << X << " incluant ses caractériques" << endl;
 			if (currentCell == "COLORCELL") {
-				cout << colorPop.toStringIndividu(X) << endl;
+				cout << colorPop.toStringIndividu(X) << "\n" << endl;
 			}
-			/*else {
-				cout << chromoPop.toStringIndividu(X) << endl;
-			}*/
+			else {
+				cout << chromoPop.toStringIndividu(X) << "\n" << endl;
+			}
 			break;
 		}
 
-				// Cas erreur
+		// Cas erreur
 		default: {
 			cout << "\n Une erreur est survenue. Fin forcée de la transation. \n";
 			fin.close();
@@ -155,16 +156,12 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 }
 
 void Arbotic::O_colorPop(string _fichierPopulation) {
-
-	string _f = PATH + _fichierPopulation;
-	ifstream fin(_f); //Lecture
+	ifstream fin(PATH + _fichierPopulation); //Lecture
 
 	// Variables composant une Population
 	string type;
-	short int NB;
-	short int ID;
-	char IDGauche;
-	char IDDroit;
+	short int NB, ID;
+	char IDGauche, IDDroit;
 	fin >> type >> NB;
 
 	// Tant que l’on peut recupérer les informations
@@ -201,7 +198,6 @@ void Arbotic::O_colorPop(string _fichierPopulation) {
 }
 
 void Arbotic::S_colorPop(string _nomFichierPopulation) {
-
 	// Création/Ouverture du fichier de sauvegarde
 	ofstream sortie;
 	sortie.open(PATH+_nomFichierPopulation);
@@ -219,62 +215,62 @@ void Arbotic::S_colorPop(string _nomFichierPopulation) {
 	sortie.close();
 }
 
-//void Arbotic::S_chromoPop(string _nomFichierPopulation) {
-//	// Création/Ouverture du fichier de sauvegarde
-//	ofstream sortie;
-//	sortie.open(PATH + _nomFichierPopulation);
-//
-//	// On parcourt tous la clients et on sauvegarde les informations
-//	sortie << "COLORCELL" << chromoPop.longueur();
-//
-//	for (chromoPop.fixerTete(); chromoPop.estDansListe(); chromoPop.suivant()) {
-//		auto NoeudPop = chromoPop.valeurCourante();
-//
-//		sortie << NoeudPop->getR()->toString();
-//	}
-//
-//	// Fermeture du fichier
-//	sortie.close();
-//}
+void Arbotic::O_chromoPop(string _fichierPopulation) {
+	ifstream fin(PATH + _fichierPopulation); //Lecture
 
-//void Arbotic::O_chromoPop(string _fichierPopulation) {
-//
-//	ifstream fin(PATH+_fichierPopulation); //Lecture
-//	// Variables composant un client
-//	string type;
-//	short int NB, ID;
-//	char IDGauche, IDDroit;
-//	fin >> type >> NB;
-//
-//	// Tant que l’on peut recupérer les informations
-//	while (fin >> ID) {
-//		// Créer un nouveau noeud avec cet ID.
-//		Noeud<ChromoCell>* noeud = new Noeud<ChromoCell>(ID);
-//		chromoPop.insererFin(noeud);
-//
-//		// Ancêtre de Gauche
-//		fin >> IDGauche;
-//		if (IDGauche != '/') {
-//			if (chromoPop.trouver(IDGauche)) {
-//				noeud->ancGauche = chromoPop.valeurCourante()->getR();
-//			}
-//		}
-//
-//		// Ancêtre de Droite
-//		fin >> IDDroit;
-//		if (IDDroit != '/') {
-//			if (chromoPop.trouver(IDDroit)) {
-//				noeud->ancDroite = chromoPop.valeurCourante()->getR();
-//			}
-//		}
-//
-//		// Les valeurs de la Cellule
-//		ChromoCell cell;
-//		//fin >> cell;
-//		noeud->cell = cell;
-//
-//	}
-//
-//	// Fermer la lecture du fichier
-//	fin.close();
-//}
+		// Variables composant une Population
+	string type;
+	short int NB, ID;
+	char IDGauche, IDDroit;
+	fin >> type >> NB;
+
+	// Tant que l’on peut recupérer les informations
+	while (fin >> ID) {
+		// Créer un nouveau noeud avec cet ID.
+		Noeud<ChromoCell>* noeud = new Noeud<ChromoCell>(ID);
+		chromoPop.insererFin(noeud);
+
+		// Ancêtre de Gauche
+		fin >> IDGauche;
+		if (IDGauche != '/') {
+			if (chromoPop.trouver(IDGauche)) {
+				noeud->ancGauche = chromoPop.valeurCourante()->getR();
+			}
+		}
+
+		// Ancêtre de Droite
+		fin >> IDDroit;
+		if (IDDroit != '/') {
+			if (chromoPop.trouver(IDDroit)) {
+				noeud->ancDroite = chromoPop.valeurCourante()->getR();
+			}
+		}
+
+		// Les valeurs de la Cellule
+		ChromoCell cell;
+		fin >> cell;
+		noeud->cell = cell;
+
+	}
+
+	// Fermer la lecture du fichier
+	fin.close();
+}
+
+void Arbotic::S_chromoPop(string _nomFichierPopulation) {
+	// Création/Ouverture du fichier de sauvegarde
+	ofstream sortie;
+	sortie.open(PATH + _nomFichierPopulation);
+
+	// On parcourt tous la clients et on sauvegarde les informations
+	sortie << "COLORCELL" << " " << chromoPop.longueur() << "\n";
+
+	for (chromoPop.fixerTete(); chromoPop.estDansListe(); chromoPop.suivant()) {
+		auto NoeudPop = chromoPop.valeurCourante();
+
+		sortie << NoeudPop->getR()->toString() << "\n";
+	}
+
+	// Fermeture du fichier
+	sortie.close();
+}

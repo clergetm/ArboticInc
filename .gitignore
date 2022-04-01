@@ -432,3 +432,6 @@ FodyWeavers.xsd
 *.sln.iml
 *.pdf
 Fichiers/POPULATION1_COLORCELL.txt
+Fichiers/POPULATION1_CHROMOCELL.txt
+Fichiers/POPULATION2_CHROMOCELL.txt
+Fichiers/POPULATION2_COLORCELL.txt

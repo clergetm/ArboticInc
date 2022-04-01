@@ -6,6 +6,12 @@ using namespace std;
 template<class T>
 class Arbre
 {
+private:
+	void viderArbre();													// Fonction initiant la suppression de l’arbre.
+	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre.
+	string aideToString(Noeud<T>*, short int);							// Fonction récursive de toString.
+	bool aideRecherche(Noeud<T>*, const short int&, short int&);		// Fonction récursive de recherche.
+
 public:
 	Noeud<T>* racine;													// Le noeud racine de l’arbre.
 
@@ -21,12 +27,6 @@ public:
 	bool estVide() const;												// Fonction vérifiant si l’arbre est vide.
 	string toString();													// Représentation textuelle de l’arbre.
 	short int recherche(const short int& _id);							// Fonction initiant la recherche.
-private:
-	void viderArbre();													// Fonction initiant la suppression de l’arbre.
-	void aideVider(Noeud<T>*);											// Fonction récursive pour vider l’arbre.
-	string aideToString(Noeud<T>*, short int);							// Fonction récursive de toString.
-	bool aideRecherche(Noeud<T>*, const short int&, short int&);		// Fonction récursive de recherche.
-
 };
 
 // CONSTRUCTEURS DESTRUCTEURS /////////////////////////////////////////////////////////////////////

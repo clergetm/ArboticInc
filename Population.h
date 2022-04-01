@@ -1,10 +1,22 @@
 #pragma once
 #include "NoeudPop.h"
 #include "Noeud.h"
+
 using namespace std;
 
 template<class T>
 class Population {
+private:
+	NoeudPop<T>* tete;													// Pointeur tete de liste.
+	NoeudPop<T>* courant;												// Pointeur courant de liste.
+	NoeudPop<T>* queue;													// Pointeur queue de liste.
+	short int nextID;													// Le prochain ID à utiliser.
+
+	void insererFin(const Arbre<T>&);									// Insérer un nouveau noeud à la fin.
+
+	short int aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second);	// Fonction récursive pour trouver un ancetre commun.
+	void aideGenerer();													// Fonction générant un nouvel individu.
+
 public:
 	Population();														// Constructeur par défaut.
 	~Population();														// Destructeur par défaut.
@@ -19,6 +31,7 @@ public:
 
 	void generer(const short int _nb);									// Générer un certain nombre d’individus.
 	void insererFin(T&);												// Insérer un nouvel individu.
+	void insererFin(Noeud<T>*);											// Inserer un noeud. Utilisé lors de l’ouverture d’un fichier population
 	void supprimer(const short int _id);								// Suppression d’un noeud.
 
 	short int ancetreCommun(const short int, const short int);			// Trouver l’ancêtre commun.
@@ -27,20 +40,8 @@ public:
 
 	string toStringIndividu(const short int _id);						// Obtenir la représentation textuelle d’un arbre.
 
-	// Ces fonctions devraient être private mais pour les test, elles doivent être accessible public//
+	// Cette fonction devrait être private mais pour les test, accessible public//
 	short int getNextID();												// Obtenir le prochain id à utiliser.
-	void insererFin(Noeud<T>*);											// Inserer un noeud.
-
-private:
-	NoeudPop<T>* tete;													// Pointeur tete de liste.
-	NoeudPop<T>* courant;												// Pointeur courant de liste.
-	NoeudPop<T>* queue;													// Pointeur queue de liste.
-	short int nextID;													// Le prochain ID à utiliser.
-
-	void insererFin(const Arbre<T>&);									// Insérer un nouveau noeud à la fin.
-
-	short int aideAncetreCommun(Arbre<T>& _premier, Arbre<T>& _second);	// Fonction récursive pour trouver un ancetre commun.
-	void aideGenerer();													// Fonction générant un nouvel individu.
 
 };
 
@@ -109,7 +110,7 @@ void Population<T>::insererFin(const Arbre<T>& _arbre) {
 */
 template<class T>
 void Population<T>::insererFin(T& _cell) {
-	Noeud<T>* newNoeud = new Noeud<ColorCell>(getNextID(), _cell);
+	Noeud<T>* newNoeud = new Noeud<T>(getNextID(), _cell);
 	this->insererFin(Arbre<T>(newNoeud));
 }
 
@@ -119,6 +120,9 @@ void Population<T>::insererFin(T& _cell) {
 */
 template<class T>
 void Population<T>::insererFin(Noeud<T>* _noeud) {
+	// mettre à jour le nextID
+	// Cette fonction étant utilisé pour initialiser un arbre, nextID doit suivre pour, par la suite, ajouter des noeuds
+	this->nextID = _noeud->getID();
 	insererFin(Arbre<T>(_noeud));
 }
 

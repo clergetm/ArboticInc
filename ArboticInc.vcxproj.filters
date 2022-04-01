@@ -36,6 +36,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="Arbotic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ChromoCell.cpp">
       <Filter>Source Files\Arbre\Cellules</Filter>
     </ClCompile>

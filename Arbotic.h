@@ -8,7 +8,7 @@ using namespace std;
 class Arbotic
 {
 private:
-
+	const string PATH = "Fichiers/";
 	Population<ColorCell> population;
 
 public:

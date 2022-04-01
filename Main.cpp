@@ -309,6 +309,11 @@ int main() {
 	//test_ancetreETenfant();
 	test_supprimer();
 	//test_generer();
+	const string PATH = "Fichiers/";
+	const string T_COLORCELL = PATH + "TRANSACTION_COLORCELL.txt";
+	const string T_CHROMOCELL = PATH + "TRANSACTION_CHROMOCELL.txt";
+	const string T_MIXTE = PATH + "TRANSACTION_MIXTE.txt";
+
 	system("pause");
 	return 0;
 }

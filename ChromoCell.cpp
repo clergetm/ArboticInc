@@ -5,17 +5,7 @@ using namespace std;
 // CONSTRUCTEURS DESTRUCTEURS //////////////////////////
 
 // Constructeur par défaut
-ChromoCell::ChromoCell() {
-	this->paireUne[0] = 0;
-	this->paireUne[1] = 0;
-	this->paireDeux[0] = 0;
-	this->paireDeux[1] = 0;
-	this->paireTrois[0] = 0;
-	this->paireTrois[1] = 0;
-	this->paireQuatre[0] = 0;
-	this->paireQuatre[1] = 0;
-
-}
+ChromoCell::ChromoCell() {}
 
 /**
 * Constructeur de Noeud avec id et valeur.
@@ -25,102 +15,157 @@ ChromoCell::ChromoCell() {
 * @param _paireQuatre:		
 */
 
-ChromoCell::ChromoCell(char _paireUne0, char _paireUne1, char _paireDeux0, char _paireDeux1, char _paireTrois0, char _paireTrois1, char _paireQuatre0, char _paireQuatre1) {
-	this->paireUne[0] = _paireUne0;
-	this->paireUne[1] = _paireUne1;
-	this->paireDeux[0] = _paireDeux0;
-	this->paireDeux[1] = _paireDeux1;
-	this->paireTrois[0] = _paireTrois0;
-	this->paireTrois[1] = _paireTrois1;
-	this->paireQuatre[0] = _paireQuatre0;
-	this->paireQuatre[1] = _paireQuatre1;
+ChromoCell::ChromoCell(char _paireUne[], char _paireDeux[], char _paireTrois[], char _paireQuatre[]) {
+	this->paireUne[0] = _paireUne[0];
+	this->paireUne[1] = _paireUne[1];
+	this->paireDeux[0] = _paireDeux[0];
+	this->paireDeux[1] = _paireDeux[1];
+	this->paireTrois[0] = _paireTrois[0];
+	this->paireTrois[1] = _paireTrois[1];
+	this->paireQuatre[0] = _paireQuatre[0];
+	this->paireQuatre[1] = _paireQuatre[1];	
 }
 
 
 // Destructeur par défaut.
 ChromoCell::~ChromoCell(){}
 
-// GETTERS SETTERS //////////////////////////////////////////////////////////////////////
-
-// Getter de paireUne
-
-char ChromoCell::getPaireUne() const { return paireUne[0];  }
-
-// Getter de paireDeux
-
-char ChromoCell::getPaireDeux() const { return paireDeux[0]; }
-
-// Getter de paireTrois
-
-char ChromoCell::getPaireTrois() const { return paireTrois[0]; }
-
-// Getter de paireQuatres
-
-char ChromoCell::getPaireQuatre() const { return paireQuatre[0]; }
-
-/**
-* Setter de paireUne.
-* Verifie si la valeur est bien entre A et L avant de l'utiliser.
-* @param _valeur : char.
-*/
-
-void ChromoCell::setPaireUne(char _valeur) {
-	if ( _valeur=='A' || _valeur == 'B' || _valeur == 'C' || _valeur == 'D' || _valeur == 'E' || _valeur == 'F' || _valeur == 'G' || _valeur == 'H' || _valeur == 'I' || _valeur == 'J' || _valeur == 'K' || _valeur == 'L') {
-		paireUne[0] = _valeur;
-	}
-	else {
-		cout << "Insertion impossible de la valeur pour paireUne : " + _valeur << endl;
-	}
-}
-
-/**
-* Setter de paireDeux.
-* Verifie si la valeur est bien entre A et L avant de l'utiliser.
-* @param _valeur : char.
-*/
-
-void ChromoCell::setPaireDeux(char _valeur) {
-	if (_valeur == 'A' || _valeur == 'B' || _valeur == 'C' || _valeur == 'D' || _valeur == 'E' || _valeur == 'F' || _valeur == 'G' || _valeur == 'H' || _valeur == 'I' || _valeur == 'J' || _valeur == 'K' || _valeur == 'L') {
-		paireDeux[0] = _valeur;
-	}
-	else {
-		cout << "Insertion impossible de la valeur pour paireDeux : " + _valeur << endl;
-	}
-}
-
-/**
-* Setter de paireTrois.
-* Verifie si la valeur est bien entre A et L avant de l'utiliser.
-* @param _valeur : char.
-*/
-
-void ChromoCell::setPaireTrois(char _valeur) {
-	if (_valeur == 'A' || _valeur == 'B' || _valeur == 'C' || _valeur == 'D' || _valeur == 'E' || _valeur == 'F' || _valeur == 'G' || _valeur == 'H' || _valeur == 'I' || _valeur == 'J' || _valeur == 'K' || _valeur == 'L') {
-		paireTrois[0] = _valeur;
-	}
-	else {
-		cout << "Insertion impossible de la valeur pour paireTrois : " + _valeur << endl;
-	}
-}
-
-/**
-* Setter de paireQuatre.
-* Verifie si la valeur est bien entre A et L avant de l'utiliser.
-* @param _valeur : char.
-*/
-
-void ChromoCell::setPaireQuatre(char _valeur) {
-	if (_valeur == 'A' || _valeur == 'B' || _valeur == 'C' || _valeur == 'D' || _valeur == 'E' || _valeur == 'F' || _valeur == 'G' || _valeur == 'H' || _valeur == 'I' || _valeur == 'J' || _valeur == 'K' || _valeur == 'L') {
-		paireQuatre[0] = _valeur;
-	}
-	else {
-		cout << "Insertion impossible de la valeur pour paireQuatre : " + _valeur << endl;
-	}
-}
-
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
+
+/*
+* Représentation textuelle de ChromoCell de toutes les paires à la suite, utile pour simplifier le code.
+* @returns le string de ChromoCell.
+*/
+string ChromoCell::listChromo() const {
+	string res;
+	res.append(1, paireUne[0]);
+	res.append(1, paireUne[1]);
+	res.append(1, paireDeux[0]);
+	res.append(1, paireDeux[1]);
+	res.append(1, paireTrois[0]);
+	res.append(1, paireTrois[1]);
+	res.append(1, paireQuatre[0]);
+	res.append(1, paireQuatre[1]);
+	return res;
+}
+
 
 /*
 * Représentation textuelle de ChromoCell.
 * @returns le string de ChromoCell.
 */
+string ChromoCell::toString() const{
+	string res;
+	res.append(1, paireUne[0]);
+	res.append(1, paireUne[1]);
+	res.append(1, ' ');
+	res.append(1, paireDeux[0]);
+	res.append(1, paireDeux[1]);
+	res.append(1, ' ');
+	res.append(1, paireTrois[0]);
+	res.append(1, paireTrois[1]);
+	res.append(1, ' ');
+	res.append(1, paireQuatre[0]);
+	res.append(1, paireQuatre[1]);
+	res.append(1, ' ');
+	return res;
+}
+
+
+/*
+* Surcharge de l’opérateur >>. Récupération des informations formant une ChromoCell.
+* @param _in :			le stream d’input.
+* @param _chromocell :	la ChromoCell à modifier.
+* @returns				Le stream à jour.
+*/
+istream& operator>> (istream& _in, ChromoCell& _chromocell)
+{
+
+	string paire;
+	_in >> paire;
+	_chromocell.paireUne[0] = paire[0];
+	_chromocell.paireUne[1] = paire[1];
+
+	_in >> paire;
+	_chromocell.paireDeux[0] = paire[0];
+	_chromocell.paireDeux[1] = paire[1];
+
+	_in >> paire;
+	_chromocell.paireTrois[0] = paire[0];
+	_chromocell.paireTrois[1] = paire[1];
+
+	_in >> paire;
+	_chromocell.paireQuatre[0] = paire[0];
+	_chromocell.paireQuatre[1] = paire[1];
+
+	return _in;
+}
+
+/*
+* Surcharge de l’opérateur <<. Retour du toString de ColorCell.
+* @param _out :			le stream de output.
+* @param _chromocell :	la ChromoCell à représenter.
+* @returns				le stream à jour.
+*/
+ostream& operator<< (ostream& _out, ChromoCell& _chromocell) {
+
+	_out << _chromocell.toString();
+
+	return _out;
+}
+
+/*
+* Surcharge de l’opérateur +. Permet un calcul sur les 4 champs qui composent ChromoCell.
+* @param _chromocell :	le deuxième ChromoCell à utiliser dans ce calcul.
+* @returns				une nouvelle ChromoCell avec les informations deux autres.
+*/
+ChromoCell ChromoCell::operator + (ChromoCell _chromocell) {
+	// Initialisation des différentes couleurs
+	char _Une[2];
+	char _Deux[2];
+	char _Trois[2];
+	char _Quatre[2];
+	char _Complet[8];
+	bool element;
+	for (short int i = 0; i < 8; i+=2) {
+		// Choisir de quel ChromoCell provient le premier chromosomes
+		element = pileOuFace();
+		
+		if (element) {
+			// Choisir si je mets l’element du premier ChromoCell en premier ou second
+			
+			// Choisir si je prends le premier élément de la paire ou le second
+			element = pileOuFace();
+			_Complet[i] = this->listChromo()[i + element];
+			element = pileOuFace();
+			_Complet[i + 1] = _chromocell.listChromo()[i + element];
+		}
+		else {
+			// Choisir si je prends le premier élément de la paire ou le second
+			element = pileOuFace();
+			_Complet[i+1] = this->listChromo()[i + element];
+			element = pileOuFace();
+			_Complet[i] = _chromocell.listChromo()[i + element];
+		}
+
+		_Une[0] = _Complet[0];
+		_Une[1] = _Complet[1];
+
+		_Deux[0] = _Complet[2];
+		_Deux[1] = _Complet[3];
+
+		_Trois[0] = _Complet[4];
+		_Trois[1] = _Complet[5];
+
+		_Quatre[0] = _Complet[6];
+		_Quatre[1] = _Complet[7];
+
+
+	}
+
+	return ChromoCell(_Une,_Deux,_Trois,_Quatre);
+}
+
+bool ChromoCell::pileOuFace() const {
+	return rand() % 2;
+}

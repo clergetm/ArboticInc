@@ -5,17 +5,22 @@
 #include "Population.h"
 using namespace std;
 
-Arbotic::Arbotic() {
-}
+// Constructeur par défaut.
+Arbotic::Arbotic() {}
 
+// Destructeur par défaut.
 Arbotic::~Arbotic() {
 
 	colorPop.viderListe();
 	chromoPop.viderListe();
 }
 
-
+/*
+* Lecture d’un fichier de transaction
+* @param _fichierTransaction : Le path du fichier de transaction
+*/
 void Arbotic::O_transactions(string _fichierTransaction) {
+	cout << "\n\n\n" << "Lecture de _fichierTransaction" << "\n\n\n";
 
 	ifstream fin(_fichierTransaction); //Lecture
 
@@ -66,7 +71,7 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 			cout << "Ouverture du fichier population " << txt << endl;
 			if( txt.find("COLORCELL") != string::npos ) {
 				O_colorPop(txt);
-				currentCell = " COLORCELL";
+				currentCell = "COLORCELL";
 			}
 			else {
 				O_chromoPop(txt);
@@ -151,10 +156,14 @@ void Arbotic::O_transactions(string _fichierTransaction) {
 		}
 		}
 	}
-
+	cout << " Le fichier " << _fichierTransaction << " est maintenant lu entièrement !" << endl;
 	fin.close();
 }
 
+/*
+* Lecture d’un fichier d’une population de ColorCell
+* @param _fichierPopulation : Le path du fichier de population
+*/
 void Arbotic::O_colorPop(string _fichierPopulation) {
 	ifstream fin(PATH + _fichierPopulation); //Lecture
 
@@ -197,10 +206,14 @@ void Arbotic::O_colorPop(string _fichierPopulation) {
 	fin.close();
 }
 
-void Arbotic::S_colorPop(string _nomFichierPopulation) {
+/*
+* Sauvegarde d’une population de ColorCell
+* @param _fichierPopulation : Le path du fichier de population
+*/
+void Arbotic::S_colorPop(string _fichierPopulation) {
 	// Création/Ouverture du fichier de sauvegarde
 	ofstream sortie;
-	sortie.open(PATH+_nomFichierPopulation);
+	sortie.open(PATH+_fichierPopulation);
 
 	// On parcourt tous la clients et on sauvegarde les informations
 	sortie << "COLORCELL" << " " << colorPop.longueur() << "\n";
@@ -208,13 +221,17 @@ void Arbotic::S_colorPop(string _nomFichierPopulation) {
 	for (colorPop.fixerTete(); colorPop.estDansListe(); colorPop.suivant()) {
 		auto NoeudPop = colorPop.valeurCourante();
 
-		sortie << NoeudPop->getR()->toString() << "\n";
+		sortie << NoeudPop << "\n";
 	}
 
 	// Fermeture du fichier
 	sortie.close();
 }
 
+/*
+* Lecture d’un fichier d’une population de ChromoCell
+* @param _fichierPopulation : Le path du fichier de population
+*/
 void Arbotic::O_chromoPop(string _fichierPopulation) {
 	ifstream fin(PATH + _fichierPopulation); //Lecture
 
@@ -257,10 +274,14 @@ void Arbotic::O_chromoPop(string _fichierPopulation) {
 	fin.close();
 }
 
-void Arbotic::S_chromoPop(string _nomFichierPopulation) {
+/*
+* Sauvegarde d’une population de ChromoCell
+* @param _fichierPopulation : Le path du fichier de population
+*/
+void Arbotic::S_chromoPop(string _fichierPopulation) {
 	// Création/Ouverture du fichier de sauvegarde
 	ofstream sortie;
-	sortie.open(PATH + _nomFichierPopulation);
+	sortie.open(PATH + _fichierPopulation);
 
 	// On parcourt tous la clients et on sauvegarde les informations
 	sortie << "COLORCELL" << " " << chromoPop.longueur() << "\n";

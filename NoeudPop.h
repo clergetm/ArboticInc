@@ -79,3 +79,44 @@ Noeud<T>* NoeudPop<T>::getR_Anc_Droit() { return arbre.getR_Anc_Droit(); }
 */
 template<class T>
 T NoeudPop<T>::getR_cell() { return arbre.getR_cell(); }
+
+// FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+* Surcharge de l’opérateur <<. Retour du toString du NoeudPop.
+* @param _out :			le stream de output.
+* @param _noeud :		le NoeudPop à représenter.
+* @returns				le stream à jour.
+*/
+template<class T>
+ostream& operator<< (ostream& _out, NoeudPop<T>* _noeud) {
+
+	Noeud<T>* racine = _noeud->getR();
+	_out << to_string(racine->getID()) + " ";
+
+	if (racine->ancGauche != nullptr) {
+		// res : 3_1_
+		_out << to_string(racine->ancGauche->getID()) + " ";
+	}
+	else
+	{
+		// res : 3_/_
+		_out << "/ ";
+	}
+
+	if (racine->ancGauche != nullptr) {
+		// res : 3_1_2_
+		_out << to_string(racine->ancGauche->getID()) + " ";
+	}
+	else
+	{
+		// res : 3_1_/_
+		_out << "/ ";
+	}
+
+	// res : 3_1_2_127_127_127
+	T cell = racine->cell;
+	_out << cell;
+	return _out;
+}

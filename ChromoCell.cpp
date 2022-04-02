@@ -4,17 +4,16 @@ using namespace std;
 
 // CONSTRUCTEURS DESTRUCTEURS //////////////////////////
 
-// Constructeur par défaut
+// Constructeur par défaut.
 ChromoCell::ChromoCell() {}
 
 /**
 * Constructeur de Noeud avec id et valeur.
-* @param _paireUne:
-* @param _paireDeux:		
-* @param _paireTrois:		
-* @param _paireQuatre:		
+* @param _paireUne:		La première paire de chromosomes.
+* @param _paireDeux:	La deuxième paire de chromosomes.	
+* @param _paireTrois:	La troisième paire de chromosomes.
+* @param _paireQuatre:	La quatrième paire de chromosomes.
 */
-
 ChromoCell::ChromoCell(char _paireUne[], char _paireDeux[], char _paireTrois[], char _paireQuatre[]) {
 	this->paireUne[0] = _paireUne[0];
 	this->paireUne[1] = _paireUne[1];
@@ -26,51 +25,10 @@ ChromoCell::ChromoCell(char _paireUne[], char _paireDeux[], char _paireTrois[], 
 	this->paireQuatre[1] = _paireQuatre[1];	
 }
 
-
 // Destructeur par défaut.
 ChromoCell::~ChromoCell(){}
 
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
-
-/*
-* Représentation textuelle de ChromoCell de toutes les paires à la suite, utile pour simplifier le code.
-* @returns le string de ChromoCell.
-*/
-string ChromoCell::listChromo() const {
-	string res;
-	res.append(1, paireUne[0]);
-	res.append(1, paireUne[1]);
-	res.append(1, paireDeux[0]);
-	res.append(1, paireDeux[1]);
-	res.append(1, paireTrois[0]);
-	res.append(1, paireTrois[1]);
-	res.append(1, paireQuatre[0]);
-	res.append(1, paireQuatre[1]);
-	return res;
-}
-
-
-/*
-* Représentation textuelle de ChromoCell.
-* @returns le string de ChromoCell.
-*/
-string ChromoCell::toString() const{
-	string res;
-	res.append(1, paireUne[0]);
-	res.append(1, paireUne[1]);
-	res.append(1, ' ');
-	res.append(1, paireDeux[0]);
-	res.append(1, paireDeux[1]);
-	res.append(1, ' ');
-	res.append(1, paireTrois[0]);
-	res.append(1, paireTrois[1]);
-	res.append(1, ' ');
-	res.append(1, paireQuatre[0]);
-	res.append(1, paireQuatre[1]);
-	res.append(1, ' ');
-	return res;
-}
-
 
 /*
 * Surcharge de l’opérateur >>. Récupération des informations formant une ChromoCell.
@@ -166,6 +124,48 @@ ChromoCell ChromoCell::operator + (ChromoCell _chromocell) {
 	return ChromoCell(_Une,_Deux,_Trois,_Quatre);
 }
 
+/*
+* Fonction permettant plusieurs choix lors de la génération aléatoire de ChromoCell.
+* @returns Un booléan choisie aléatoirement.
+*/
 bool ChromoCell::pileOuFace() const {
 	return rand() % 2;
+}
+
+/*
+* Représentation textuelle de ChromoCell de toutes les paires à la suite, utile pour simplifier le code.
+* @returns le string de ChromoCell sans espace pour séparer les valeurs.
+*/
+string ChromoCell::listChromo() const {
+	string res;
+	res.append(1, paireUne[0]);
+	res.append(1, paireUne[1]);
+	res.append(1, paireDeux[0]);
+	res.append(1, paireDeux[1]);
+	res.append(1, paireTrois[0]);
+	res.append(1, paireTrois[1]);
+	res.append(1, paireQuatre[0]);
+	res.append(1, paireQuatre[1]);
+	return res;
+}
+
+/*
+* Représentation textuelle de ChromoCell.
+* @returns le string de ChromoCell.
+*/
+string ChromoCell::toString() const {
+	string res;
+	res.append(1, paireUne[0]);
+	res.append(1, paireUne[1]);
+	res.append(1, ' ');
+	res.append(1, paireDeux[0]);
+	res.append(1, paireDeux[1]);
+	res.append(1, ' ');
+	res.append(1, paireTrois[0]);
+	res.append(1, paireTrois[1]);
+	res.append(1, ' ');
+	res.append(1, paireQuatre[0]);
+	res.append(1, paireQuatre[1]);
+	res.append(1, ' ');
+	return res;
 }

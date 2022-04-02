@@ -82,14 +82,6 @@ void ColorCell::setBleu(short int _valeur) {
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 
 /*
-* Représentation textuelle de ColorCell.
-* @returns le string de ColorCell.
-*/
-string ColorCell::toString() const {
-	return to_string(rouge) + " " + to_string(vert) + " " + to_string(bleue);
-}
-
-/*
 * Surcharge de l’opérateur >>. Récupération des informations formant une ColorCell.
 * @param _in :			le stream d’input.
 * @param _colorcell :	la colorcell à modifier.
@@ -110,8 +102,7 @@ istream& operator>> (istream& _in, ColorCell& _colorcell)
 */
 ostream& operator<< (ostream& _out, ColorCell& _colorcell) {
 
-	_out << _colorcell.toString();
-
+	_out << to_string(_colorcell.getRouge()) << " " << to_string(_colorcell.getVert()) << " " << to_string(_colorcell.getBleu());
 	return _out;
 }
 
@@ -137,4 +128,13 @@ ColorCell ColorCell::operator + (ColorCell _colorcell) {
 	vert = (this->vert + (_colorcell.vert)) / 2;
 
 	return ColorCell(bleue, rouge, vert);
+}
+
+
+/*
+* Représentation textuelle de ColorCell.
+* @returns le string de ColorCell.
+*/
+string ColorCell::toString() const {
+	return to_string(rouge) + " " + to_string(vert) + " " + to_string(bleue);
 }

@@ -349,11 +349,8 @@ int main() {
 
 	Arbotic arbotic;
 	srand(5);
-	//cout << "\n\n\n" << "T_COLORCELL" << "\n\n\n";
-	//arbotic.O_transactions(T_COLORCELL);
-	//cout << "\n\n\n" << "T_CHROMOCELL" << "\n\n\n";
-	//arbotic.O_transactions(T_CHROMOCELL);
-	cout << "\n\n\n" << "T_MIXTE" << "\n\n\n";
+	arbotic.O_transactions(T_COLORCELL);
+	arbotic.O_transactions(T_CHROMOCELL);
 	arbotic.O_transactions(T_MIXTE);
 
 	system("pause");

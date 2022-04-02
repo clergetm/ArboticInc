@@ -6,22 +6,22 @@ using namespace std;
 class ChromoCell
 {
 private:
-	string listChromo() const;
-	bool pileOuFace() const;
+	string listChromo() const;											// Obtenir les 4 paires en une liste.
+	bool pileOuFace() const;											// Un pile ou face utilisé pour la génération aléatoire.
+	char paireUne[2];													// Première Paire de Chromosome.
+	char paireDeux[2];													// Deuxième Paire de Chromosome.
+	char paireTrois[2];													// Troisième Paire de Chromosome.
+	char paireQuatre[2];												// Quatrième Paire de Chromosome.
+
 public:
-	char paireUne[2];
-	char paireDeux[2];
-	char paireTrois[2];
-	char paireQuatre[2];
+	ChromoCell();														// Constructeur par défaut.
+	ChromoCell(char[], char[], char[], char[]);							// Constructeur avec les 4 paires.
+	~ChromoCell();														// Destructeur par défaut.
 
-	ChromoCell();
-	ChromoCell(char[], char[], char[], char[]);
-	~ChromoCell();
+	string toString() const;											// Représentation textuelle de ColorCell.
 
-	string toString() const;
-	ChromoCell operator + (ChromoCell c);
-	friend istream& operator>> (istream& in, ChromoCell& chromocell);
-	friend ostream& operator<< (ostream& out, ChromoCell& chromocell);
-
+	ChromoCell operator + (ChromoCell c);								// Surcharge de l’opérateur +.
+	friend istream& operator>> (istream& in, ChromoCell& chromocell);	// Surcharge de l’opérateur >>.
+	friend ostream& operator<< (ostream& out, ChromoCell& chromocell);	// Surcharge de l’opérateur <<.
 
 };

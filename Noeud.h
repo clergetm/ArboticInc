@@ -16,13 +16,6 @@ public:
 	~Noeud<T>();					// Destructeur.
 	
 	short int getID() const;		// Getter ID.
-	//Noeud<T>* getancGauche() const;	// Getter ancGauche.
-	//Noeud<T>* getancDroit() const;	// Getter ancDroite.
-	//T getCellule() const;			// Getter valeur.
-	//
-	//void setancGauche(Noeud<T>*);	// Getter ancGauche.
-	//void setancDroit(Noeud<T>*);	// Getter ancDroite.
-	//void setCellule(T);				// Setter valeur.
 	
 	bool estUneFeuille() const;		// Vérifier si le noeud est une feuille.
 	string toString() const;		// Représentation textuelle du Noeud.
@@ -66,39 +59,6 @@ Noeud<T>::~Noeud() {
 // Getter de id.
 template<class T>
 short int Noeud<T>::getID() const { return this->id; }
-
-//// Getter de ancGauche.
-//template<class T>
-//Noeud<T>* Noeud<T>::getancGauche() const { return this->ancGauche; }
-//
-//// Getter de ancDroite.
-//template<class T>
-//Noeud<T>* Noeud<T>::getancDroit() const { return this->ancDroite; }
-//
-//// Getter de Cellule.
-//template<class T>
-//T Noeud<T>::getCellule() const { return this->cell; }
-
-///**
-//* Setter de ancGauche.
-//* @param _ancetre: un Noeud ancetre
-//*/
-//template<class T>
-//void Noeud<T>::setancGauche(Noeud<T>* _ancetre){ this->ancGauche = _ancetre; }
-//
-///**
-//* Setter de ancDroite.
-//* @param _ancetre: un Noeud ancetre
-//*/
-//template<class T>
-//void Noeud<T>::setancDroit(Noeud<T>* _ancetre) { this->ancDroite = _ancetre; }
-//
-///**
-//* Setter de cellule.
-//* @param _cellule: une cellule ColorCell ou ChromoCell
-//*/
-//template<class T>
-//void Noeud<T>::setCellule(T _cellule) { this->cell = _cellule; }
 
 // FONCTIONS //////////////////////////////////////////////////////////////////////////////////////
 
